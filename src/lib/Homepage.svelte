@@ -11,9 +11,7 @@
   let scrollY = 0
   let heroSection
   let currentBackgroundIndex = 0
-  let nextBackgroundIndex = 1
   let mobileMenuOpen = false
-  let showNextBackground = false
   
   const backgroundGifs = [droneGif1, droneGif2, droneGif3]
   
@@ -31,18 +29,10 @@
       }
     }
 
-    // Rotate background GIFs every 6 seconds to match GIF duration
+    // Switch GIF every 3 seconds for seamless continuous effect
     const backgroundInterval = setInterval(() => {
-      // Start crossfade by showing next background
-      nextBackgroundIndex = (currentBackgroundIndex + 1) % backgroundGifs.length
-      showNextBackground = true
-      
-      // After 1 second fade, switch to next background
-      setTimeout(() => {
-        currentBackgroundIndex = nextBackgroundIndex
-        showNextBackground = false
-      }, 1000)
-    }, 6000)
+      currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundGifs.length
+    }, 3000)
 
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
@@ -141,20 +131,12 @@
   <!-- Main Hero Section with GIF Background -->
   <main bind:this={heroSection} class="relative flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 h-[60vh] sm:h-[70vh] overflow-hidden">
     
-    <!-- Current GIF Background -->
+    <!-- Single GIF Background - instant switches every 3 seconds -->
     <img 
       src={backgroundGifs[currentBackgroundIndex]}
       alt="Marle Hall Background"
-      class="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000"
-      style="filter: blur(2px) brightness(0.7); opacity: {showNextBackground ? 0 : 1};"
-    />
-    
-    <!-- Next GIF Background (for crossfade) -->
-    <img 
-      src={backgroundGifs[nextBackgroundIndex]}
-      alt="Marle Hall Background"
-      class="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000"
-      style="filter: blur(2px) brightness(0.7); opacity: {showNextBackground ? 1 : 0};"
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      style="filter: blur(2px) brightness(0.7);"
     />
     
     <!-- Dark Overlay for Text Contrast -->
@@ -168,12 +150,6 @@
         <h2 class="text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.2em] sm:tracking-[0.3em] uppercase font-lora">
           Marle Hall
         </h2>
-        <!-- Temporary visual indicator for cycling (remove later) -->
-        <div class="mt-4 flex space-x-2">
-          {#each backgroundGifs as _, index}
-            <div class="w-2 h-2 rounded-full {index === currentBackgroundIndex ? 'bg-white' : 'bg-white/30'} transition-all duration-300"></div>
-          {/each}
-        </div>
       </div>
     </div>
   </main>
