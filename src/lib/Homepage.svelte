@@ -50,26 +50,30 @@
       const currentVideoElement = videoNum === 1 ? videoElement1 : videoElement2
       
       if (nextVideoElement) {
+        // Preload and prepare next video
         nextVideoElement.src = videos[currentVideoIndex]
         nextVideoElement.currentTime = 0
+        nextVideoElement.load() // Force reload
         
-        // Start playing the next video
-        nextVideoElement.play().then(() => {
-          // Crossfade: fade out current, fade in next
-          currentVideoElement.style.opacity = '0'
-          nextVideoElement.style.opacity = '1'
-          
-          // Update active video element
-          activeVideoElement = videoNum === 1 ? 2 : 1
-          
-          // Reset the previous video after transition
-          setTimeout(() => {
-            currentVideoElement.pause()
-            currentVideoElement.currentTime = 0
-          }, 1000)
-        }).catch(() => {
-          console.log('Video play failed')
-        })
+        // Wait for video to be ready, then start seamless transition
+        nextVideoElement.addEventListener('canplay', () => {
+          nextVideoElement.play().then(() => {
+            // Instant switch - no fade to prevent flashes
+            currentVideoElement.style.opacity = '0'
+            nextVideoElement.style.opacity = '1'
+            
+            // Update active video element
+            activeVideoElement = videoNum === 1 ? 2 : 1
+            
+            // Clean up previous video
+            setTimeout(() => {
+              currentVideoElement.pause()
+              currentVideoElement.currentTime = 0
+            }, 100)
+          }).catch(() => {
+            console.log('Video play failed')
+          })
+        }, { once: true })
       }
     }
 
@@ -212,8 +216,8 @@
         autoplay 
         muted 
         playsinline
-        preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none transition-opacity duration-1000"
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none transition-opacity duration-75"
         style="opacity: {activeVideoElement === 1 ? 1 : 0};"
       ></video>
       
@@ -223,8 +227,8 @@
         src={videos[(currentVideoIndex + 1) % videos.length]}
         muted 
         playsinline
-        preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none transition-opacity duration-1000"
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none transition-opacity duration-75"
         style="opacity: {activeVideoElement === 2 ? 1 : 0};"
       ></video>
     {:else}
@@ -389,15 +393,15 @@
         <div>
           <h4 class="text-stone-800 tracking-wide uppercase font-light mb-3 text-sm">Address</h4>
           <p class="text-stone-600 font-light leading-relaxed text-xs sm:text-sm">
-            Marle Hall Estate<br>
-            Countryside Village<br>
-            England
+            Marle Hall<br>
+            Marl Ln, Llandudno Junction<br>
+            Wales LL31 9JA
           </p>
         </div>
         <div>
           <h4 class="text-stone-800 tracking-wide uppercase font-light mb-3 text-sm">Contact</h4>
           <p class="text-stone-600 font-light leading-relaxed text-xs sm:text-sm">
-            +44 (0) 1234 567 890<br>
+            +014 10 25 2340<br>
             reservations@marlehall.co.uk
           </p>
         </div>
