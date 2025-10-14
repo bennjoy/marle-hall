@@ -31,7 +31,7 @@
       }
     }
 
-    // Rotate background GIFs every 10 seconds with crossfade
+    // Rotate background GIFs every 6 seconds to match GIF duration
     const backgroundInterval = setInterval(() => {
       // Start crossfade by showing next background
       nextBackgroundIndex = (currentBackgroundIndex + 1) % backgroundGifs.length
@@ -42,7 +42,7 @@
         currentBackgroundIndex = nextBackgroundIndex
         showNextBackground = false
       }, 1000)
-    }, 10000)
+    }, 6000)
 
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
