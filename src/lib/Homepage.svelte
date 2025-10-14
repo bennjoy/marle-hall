@@ -44,13 +44,19 @@
       currentVideoIndex = (currentVideoIndex + 1) % videos.length
       if (videoElement) {
         videoElement.src = videos[currentVideoIndex]
-        videoElement.play()
+        videoElement.play().catch(() => {
+          console.log('Video play failed')
+        })
       }
     }
 
     // Desktop: Video management
     if (!isMobile && videoElement) {
       videoElement.addEventListener('ended', handleVideoEnd)
+      // Try to play initial video
+      videoElement.play().catch(() => {
+        console.log('Initial video play failed')
+      })
     }
 
     // Mobile: GIF switching every 3 seconds
@@ -172,7 +178,6 @@
         src={videos[currentVideoIndex]}
         autoplay 
         muted 
-        loop
         playsinline
         preload="metadata"
         class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none"
