@@ -16,8 +16,10 @@
   let currentBackgroundIndex = 0
   let mobileMenuOpen = false
   let isMobile = false
-  let videoElement
+  let videoElement1
+  let videoElement2
   let currentVideoIndex = 0
+  let activeVideoElement = 1 // Track which video element is currently active
   
   const videos = [droneVideo1, droneVideo2, droneVideo3]
   const backgroundGifs = [droneGif1, droneGif2, droneGif3]
@@ -39,24 +41,51 @@
       }
     }
 
-    const handleVideoEnd = () => {
+    const handleVideoEnd = (videoNum) => {
       // Move to next video when current one ends (desktop only)
       currentVideoIndex = (currentVideoIndex + 1) % videos.length
-      if (videoElement) {
-        videoElement.src = videos[currentVideoIndex]
-        videoElement.play().catch(() => {
+      
+      // Start preloading the next video on the inactive element
+      const nextVideoElement = videoNum === 1 ? videoElement2 : videoElement1
+      const currentVideoElement = videoNum === 1 ? videoElement1 : videoElement2
+      
+      if (nextVideoElement) {
+        nextVideoElement.src = videos[currentVideoIndex]
+        nextVideoElement.currentTime = 0
+        
+        // Start playing the next video
+        nextVideoElement.play().then(() => {
+          // Crossfade: fade out current, fade in next
+          currentVideoElement.style.opacity = '0'
+          nextVideoElement.style.opacity = '1'
+          
+          // Update active video element
+          activeVideoElement = videoNum === 1 ? 2 : 1
+          
+          // Reset the previous video after transition
+          setTimeout(() => {
+            currentVideoElement.pause()
+            currentVideoElement.currentTime = 0
+          }, 1000)
+        }).catch(() => {
           console.log('Video play failed')
         })
       }
     }
 
     // Desktop: Video management
-    if (!isMobile && videoElement) {
-      videoElement.addEventListener('ended', handleVideoEnd)
-      // Try to play initial video
-      videoElement.play().catch(() => {
-        console.log('Initial video play failed')
-      })
+    if (!isMobile) {
+      if (videoElement1) {
+        videoElement1.addEventListener('ended', () => handleVideoEnd(1))
+        // Start with first video
+        videoElement1.play().catch(() => {
+          console.log('Initial video play failed')
+        })
+      }
+      
+      if (videoElement2) {
+        videoElement2.addEventListener('ended', () => handleVideoEnd(2))
+      }
     }
 
     // Mobile: GIF switching every 3 seconds
@@ -83,8 +112,11 @@
     return () => {
       window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('click', handleClickOutside)
-      if (videoElement) {
-        videoElement.removeEventListener('ended', handleVideoEnd)
+      if (videoElement1) {
+        videoElement1.removeEventListener('ended', () => handleVideoEnd(1))
+      }
+      if (videoElement2) {
+        videoElement2.removeEventListener('ended', () => handleVideoEnd(2))
       }
       if (window.mobileBackgroundInterval) {
         clearInterval(window.mobileBackgroundInterval)
@@ -171,16 +203,29 @@
   <!-- Main Hero Section with Responsive Background -->
   <main bind:this={heroSection} class="relative flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 h-[60vh] sm:h-[70vh] overflow-hidden">
     
-    <!-- Desktop: Video Background -->
+    <!-- Desktop: Dual Video Background for Seamless Transitions -->
     {#if !isMobile}
+      <!-- Video Element 1 -->
       <video 
-        bind:this={videoElement}
+        bind:this={videoElement1}
         src={videos[currentVideoIndex]}
         autoplay 
         muted 
         playsinline
         preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none"
+        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none transition-opacity duration-1000"
+        style="opacity: {activeVideoElement === 1 ? 1 : 0};"
+      ></video>
+      
+      <!-- Video Element 2 -->
+      <video 
+        bind:this={videoElement2}
+        src={videos[(currentVideoIndex + 1) % videos.length]}
+        muted 
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none transition-opacity duration-1000"
+        style="opacity: {activeVideoElement === 2 ? 1 : 0};"
       ></video>
     {:else}
       <!-- Mobile: GIF Background with 3-second switching -->
