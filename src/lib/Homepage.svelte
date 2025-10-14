@@ -2,6 +2,9 @@
   import { onMount } from 'svelte'
   import MHLogo from '../assets/images/MH.svg'
   import DecorativeDivider from '../assets/images/DecorativeDivider182.svg'
+  import droneVideo1 from '../assets/images/ai-drone-1.mp4'
+  import droneVideo2 from '../assets/images/ai-drone-2.mp4'
+  import droneVideo3 from '../assets/images/ai-drone-3.mp4'
   import droneGif1 from '../assets/images/ai-drone-1.gif'
   import droneGif2 from '../assets/images/ai-drone-2.gif'  
   import droneGif3 from '../assets/images/ai-drone-3.gif'
@@ -12,11 +15,18 @@
   let heroSection
   let currentBackgroundIndex = 0
   let mobileMenuOpen = false
+  let isMobile = false
+  let videoElement
+  let currentVideoIndex = 0
   
+  const videos = [droneVideo1, droneVideo2, droneVideo3]
   const backgroundGifs = [droneGif1, droneGif2, droneGif3]
   
   onMount(() => {
     console.log('Marle Hall website loaded')
+    
+    // Detect mobile device
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768
     
     const handleScroll = () => {
       scrollY = window.scrollY
@@ -29,10 +39,29 @@
       }
     }
 
-    // Switch GIF every 3 seconds for seamless continuous effect
-    const backgroundInterval = setInterval(() => {
-      currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundGifs.length
-    }, 3000)
+    const handleVideoEnd = () => {
+      // Move to next video when current one ends (desktop only)
+      currentVideoIndex = (currentVideoIndex + 1) % videos.length
+      if (videoElement) {
+        videoElement.src = videos[currentVideoIndex]
+        videoElement.play()
+      }
+    }
+
+    // Desktop: Video management
+    if (!isMobile && videoElement) {
+      videoElement.addEventListener('ended', handleVideoEnd)
+    }
+
+    // Mobile: GIF switching every 3 seconds
+    if (isMobile) {
+      const backgroundInterval = setInterval(() => {
+        currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundGifs.length
+      }, 3000)
+      
+      // Store interval to clear on cleanup
+      window.mobileBackgroundInterval = backgroundInterval
+    }
 
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
@@ -48,7 +77,12 @@
     return () => {
       window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('click', handleClickOutside)
-      clearInterval(backgroundInterval)
+      if (videoElement) {
+        videoElement.removeEventListener('ended', handleVideoEnd)
+      }
+      if (window.mobileBackgroundInterval) {
+        clearInterval(window.mobileBackgroundInterval)
+      }
     }
   })
 </script>
@@ -128,16 +162,30 @@
   <!-- Spacer for fixed header -->
   <div class="h-20"></div>
 
-  <!-- Main Hero Section with GIF Background -->
+  <!-- Main Hero Section with Responsive Background -->
   <main bind:this={heroSection} class="relative flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 h-[60vh] sm:h-[70vh] overflow-hidden">
     
-    <!-- Single GIF Background - instant switches every 3 seconds -->
-    <img 
-      src={backgroundGifs[currentBackgroundIndex]}
-      alt="Marle Hall Background"
-      class="absolute inset-0 w-full h-full object-cover z-0"
-      style="filter: blur(2px) brightness(0.7);"
-    />
+    <!-- Desktop: Video Background -->
+    {#if !isMobile}
+      <video 
+        bind:this={videoElement}
+        src={videos[currentVideoIndex]}
+        autoplay 
+        muted 
+        loop
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none"
+      ></video>
+    {:else}
+      <!-- Mobile: GIF Background with 3-second switching -->
+      <img 
+        src={backgroundGifs[currentBackgroundIndex]}
+        alt="Marle Hall Background"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        style="filter: blur(2px) brightness(0.7);"
+      />
+    {/if}
     
     <!-- Dark Overlay for Text Contrast -->
     <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
