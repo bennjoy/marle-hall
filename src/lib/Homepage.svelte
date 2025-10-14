@@ -13,11 +13,16 @@
   let currentVideoIndex = 0
   let videoElement
   let mobileMenuOpen = false
+  let isMobile = false
+  let videoSupported = true
   
   const videos = [droneVideo1, droneVideo2, droneVideo3]
   
   onMount(() => {
     console.log('Marle Hall website loaded')
+    
+    // Detect mobile device
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768
     
     const handleScroll = () => {
       scrollY = window.scrollY
@@ -33,9 +38,35 @@
     const handleVideoEnd = () => {
       // Move to next video when current one ends
       currentVideoIndex = (currentVideoIndex + 1) % videos.length
-      if (videoElement) {
+      if (videoElement && videoSupported) {
         videoElement.src = videos[currentVideoIndex]
-        videoElement.play()
+        videoElement.play().catch(() => {
+          console.log('Video autoplay failed, using fallback background')
+          videoSupported = false
+        })
+      }
+    }
+
+    const handleVideoError = () => {
+      console.log('Video failed to load, using fallback background')
+      videoSupported = false
+    }
+
+    const initializeVideo = () => {
+      if (videoElement && !isMobile) {
+        // Desktop video behavior
+        videoElement.addEventListener('ended', handleVideoEnd)
+        videoElement.addEventListener('error', handleVideoError)
+        
+        // Try to play the video
+        videoElement.play().catch(() => {
+          console.log('Video autoplay blocked, using fallback background')
+          videoSupported = false
+        })
+      } else if (videoElement && isMobile) {
+        // Mobile: disable video to prevent fullscreen issues
+        videoElement.style.display = 'none'
+        videoSupported = false
       }
     }
 
@@ -46,10 +77,8 @@
       }
     }
     
-    // Add event listener for when video ends
-    if (videoElement) {
-      videoElement.addEventListener('ended', handleVideoEnd)
-    }
+    // Initialize video after a short delay to ensure DOM is ready
+    setTimeout(initializeVideo, 100)
     
     window.addEventListener('scroll', handleScroll)
     document.addEventListener('click', handleClickOutside)
@@ -60,6 +89,7 @@
       document.removeEventListener('click', handleClickOutside)
       if (videoElement) {
         videoElement.removeEventListener('ended', handleVideoEnd)
+        videoElement.removeEventListener('error', handleVideoError)
       }
     }
   })
@@ -143,17 +173,25 @@
   <!-- Main Hero Section with Video Background -->
   <main bind:this={heroSection} class="relative flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 h-[60vh] sm:h-[70vh] overflow-hidden">
     
-    <!-- Video Background -->
-    <video 
-      bind:this={videoElement}
-      src={videos[currentVideoIndex]}
-      autoplay 
-      muted 
-      class="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
-    ></video>
+    <!-- Video Background (Desktop Only) -->
+    {#if !isMobile && videoSupported}
+      <video 
+        bind:this={videoElement}
+        src={videos[currentVideoIndex]}
+        autoplay 
+        muted 
+        loop
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none"
+      ></video>
+    {:else}
+      <!-- Static Background for Mobile or when video fails -->
+      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-stone-800 via-amber-900 to-stone-900 z-0" style="background-image: linear-gradient(135deg, #2c1810 0%, #8a7f52 50%, #1c1611 100%);"></div>
+    {/if}
     
     <!-- Dark Overlay for Text Contrast -->
-    <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+    <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
     
     <!-- Content - Above Video -->
     <div class="relative z-20 max-w-4xl mx-auto text-center">
