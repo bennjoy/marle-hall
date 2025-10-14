@@ -2,27 +2,30 @@
   import { onMount } from 'svelte'
   import MHLogo from '../assets/images/MH.svg'
   import DecorativeDivider from '../assets/images/DecorativeDivider182.svg'
-  import droneVideo1 from '../assets/images/ai-drone-1.mp4'
-  import droneVideo2 from '../assets/images/ai-drone-2.mp4'
-  import droneVideo3 from '../assets/images/ai-drone-3.mp4'
+  // Import GIFs instead of videos (you'll need to convert and add these)
+  // import droneGif1 from '../assets/images/ai-drone-1.gif'
+  // import droneGif2 from '../assets/images/ai-drone-2.gif'  
+  // import droneGif3 from '../assets/images/ai-drone-3.gif'
   
   let currentYear = new Date().getFullYear()
   let showHeaderLogo = false
   let scrollY = 0
   let heroSection
-  let currentVideoIndex = 0
-  let videoElement
+  let currentBackgroundIndex = 0
   let mobileMenuOpen = false
-  let isMobile = false
-  let videoSupported = true
   
-  const videos = [droneVideo1, droneVideo2, droneVideo3]
+  // Temporary: Use CSS gradients until GIFs are ready
+  const backgroundStyles = [
+    'linear-gradient(135deg, #2c1810 0%, #8a7f52 30%, #4a3728 70%, #1c1611 100%)',
+    'linear-gradient(45deg, #1c1611 0%, #6b5d3f 40%, #8a7f52 60%, #2c1810 100%)', 
+    'linear-gradient(225deg, #4a3728 0%, #8a7f52 50%, #2c1810 80%, #1c1611 100%)'
+  ]
+  
+  // Future: Use actual GIFs when ready
+  // const backgroundGifs = [droneGif1, droneGif2, droneGif3]
   
   onMount(() => {
     console.log('Marle Hall website loaded')
-    
-    // Detect mobile device
-    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768
     
     const handleScroll = () => {
       scrollY = window.scrollY
@@ -30,45 +33,15 @@
       // Show header logo when scrolled past 50% of the hero section
       if (heroSection) {
         const heroHeight = heroSection.offsetHeight
-        const triggerPoint = heroHeight * 0.5 // Trigger at 50% of hero height
+        const triggerPoint = heroHeight * 0.5
         showHeaderLogo = scrollY > triggerPoint
       }
     }
-    
-    const handleVideoEnd = () => {
-      // Move to next video when current one ends
-      currentVideoIndex = (currentVideoIndex + 1) % videos.length
-      if (videoElement && videoSupported) {
-        videoElement.src = videos[currentVideoIndex]
-        videoElement.play().catch(() => {
-          console.log('Video autoplay failed, using fallback background')
-          videoSupported = false
-        })
-      }
-    }
 
-    const handleVideoError = () => {
-      console.log('Video failed to load, using fallback background')
-      videoSupported = false
-    }
-
-    const initializeVideo = () => {
-      if (videoElement && !isMobile) {
-        // Desktop video behavior
-        videoElement.addEventListener('ended', handleVideoEnd)
-        videoElement.addEventListener('error', handleVideoError)
-        
-        // Try to play the video
-        videoElement.play().catch(() => {
-          console.log('Video autoplay blocked, using fallback background')
-          videoSupported = false
-        })
-      } else if (videoElement && isMobile) {
-        // Mobile: disable video to prevent fullscreen issues
-        videoElement.style.display = 'none'
-        videoSupported = false
-      }
-    }
+    // Rotate background gradients every 8 seconds (until GIFs are ready)
+    const backgroundInterval = setInterval(() => {
+      currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundStyles.length
+    }, 8000)
 
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
@@ -77,9 +50,6 @@
       }
     }
     
-    // Initialize video after a short delay to ensure DOM is ready
-    setTimeout(initializeVideo, 100)
-    
     window.addEventListener('scroll', handleScroll)
     document.addEventListener('click', handleClickOutside)
     handleScroll() // Initial check
@@ -87,10 +57,7 @@
     return () => {
       window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('click', handleClickOutside)
-      if (videoElement) {
-        videoElement.removeEventListener('ended', handleVideoEnd)
-        videoElement.removeEventListener('error', handleVideoError)
-      }
+      clearInterval(backgroundInterval)
     }
   })
 </script>
@@ -170,30 +137,28 @@
   <!-- Spacer for fixed header -->
   <div class="h-20"></div>
 
-  <!-- Main Hero Section with Video Background -->
+  <!-- Main Hero Section with Animated Background -->
   <main bind:this={heroSection} class="relative flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 h-[60vh] sm:h-[70vh] overflow-hidden">
     
-    <!-- Video Background (Desktop Only) -->
-    {#if !isMobile && videoSupported}
-      <video 
-        bind:this={videoElement}
-        src={videos[currentVideoIndex]}
-        autoplay 
-        muted 
-        loop
-        playsinline
-        preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover z-0 blur-sm pointer-events-none"
-      ></video>
-    {:else}
-      <!-- Static Background for Mobile or when video fails -->
-      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-stone-800 via-amber-900 to-stone-900 z-0" style="background-image: linear-gradient(135deg, #2c1810 0%, #8a7f52 50%, #1c1611 100%);"></div>
-    {/if}
+    <!-- Animated Background (Gradient transitions until GIFs are ready) -->
+    <div 
+      class="absolute inset-0 w-full h-full z-0 transition-all duration-[2000ms] ease-in-out"
+      style="background-image: {backgroundStyles[currentBackgroundIndex]};"
+    ></div>
+    
+    <!-- Future: GIF Background (uncomment when GIFs are ready) -->
+    <!-- 
+    <img 
+      src={backgroundGifs[currentBackgroundIndex]}
+      alt="Marle Hall Background"
+      class="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
+    />
+    -->
     
     <!-- Dark Overlay for Text Contrast -->
     <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
     
-    <!-- Content - Above Video -->
+    <!-- Content - Above Background -->
     <div class="relative z-20 max-w-4xl mx-auto text-center">
       <!-- Central Logo Display -->
       <div class="flex flex-col items-center">
