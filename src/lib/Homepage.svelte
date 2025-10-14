@@ -2,10 +2,9 @@
   import { onMount } from 'svelte'
   import MHLogo from '../assets/images/MH.svg'
   import DecorativeDivider from '../assets/images/DecorativeDivider182.svg'
-  // Import GIFs instead of videos (you'll need to convert and add these)
-  // import droneGif1 from '../assets/images/ai-drone-1.gif'
-  // import droneGif2 from '../assets/images/ai-drone-2.gif'  
-  // import droneGif3 from '../assets/images/ai-drone-3.gif'
+  import droneGif1 from '../assets/images/ai-drone-1.gif'
+  import droneGif2 from '../assets/images/ai-drone-2.gif'  
+  import droneGif3 from '../assets/images/ai-drone-3.gif'
   
   let currentYear = new Date().getFullYear()
   let showHeaderLogo = false
@@ -14,15 +13,7 @@
   let currentBackgroundIndex = 0
   let mobileMenuOpen = false
   
-  // Temporary: Use CSS gradients until GIFs are ready
-  const backgroundStyles = [
-    'linear-gradient(135deg, #2c1810 0%, #8a7f52 30%, #4a3728 70%, #1c1611 100%)',
-    'linear-gradient(45deg, #1c1611 0%, #6b5d3f 40%, #8a7f52 60%, #2c1810 100%)', 
-    'linear-gradient(225deg, #4a3728 0%, #8a7f52 50%, #2c1810 80%, #1c1611 100%)'
-  ]
-  
-  // Future: Use actual GIFs when ready
-  // const backgroundGifs = [droneGif1, droneGif2, droneGif3]
+  const backgroundGifs = [droneGif1, droneGif2, droneGif3]
   
   onMount(() => {
     console.log('Marle Hall website loaded')
@@ -38,10 +29,10 @@
       }
     }
 
-    // Rotate background gradients every 8 seconds (until GIFs are ready)
+    // Rotate background GIFs every 10 seconds
     const backgroundInterval = setInterval(() => {
-      currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundStyles.length
-    }, 8000)
+      currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundGifs.length
+    }, 10000)
 
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
@@ -137,26 +128,19 @@
   <!-- Spacer for fixed header -->
   <div class="h-20"></div>
 
-  <!-- Main Hero Section with Animated Background -->
+  <!-- Main Hero Section with GIF Background -->
   <main bind:this={heroSection} class="relative flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 h-[60vh] sm:h-[70vh] overflow-hidden">
     
-    <!-- Animated Background (Gradient transitions until GIFs are ready) -->
-    <div 
-      class="absolute inset-0 w-full h-full z-0 transition-all duration-[2000ms] ease-in-out"
-      style="background-image: {backgroundStyles[currentBackgroundIndex]};"
-    ></div>
-    
-    <!-- Future: GIF Background (uncomment when GIFs are ready) -->
-    <!-- 
+    <!-- GIF Background -->
     <img 
       src={backgroundGifs[currentBackgroundIndex]}
       alt="Marle Hall Background"
-      class="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
+      class="absolute inset-0 w-full h-full object-cover z-0 blur-sm transition-opacity duration-1000"
+      style="filter: blur(2px) brightness(0.7);"
     />
-    -->
     
     <!-- Dark Overlay for Text Contrast -->
-    <div class="absolute inset-0 bg-black bg-opacity-30 z-10"></div>
+    <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
     
     <!-- Content - Above Background -->
     <div class="relative z-20 max-w-4xl mx-auto text-center">
