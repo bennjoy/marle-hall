@@ -119,7 +119,7 @@
         <div class="md:hidden w-6"></div>
         
         <!-- Desktop Navigation -->
-        <div class="hidden md:flex w-full">
+        <div class="hidden md:flex w-full relative">
           <!-- When logo is hidden: All nav items centered -->
           <div class="flex items-center justify-center w-full space-x-8 transition-all duration-500 {showHeaderLogo ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
             <a href="#rooms" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Rooms</a>
