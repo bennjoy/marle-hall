@@ -129,21 +129,21 @@
           </div>
           
           <!-- When logo is visible: Split navigation with center logo -->
-          <div class="absolute inset-0 flex justify-center items-center transition-all duration-500 {showHeaderLogo ? 'opacity-100' : 'opacity-0 pointer-events-none'}">
+          <div class="absolute inset-0 flex items-center transition-all duration-500 {showHeaderLogo ? 'opacity-100' : 'opacity-0 pointer-events-none'}">
             <!-- Left Navigation -->
-            <div class="flex items-center space-x-8 mr-16">
+            <div class="flex items-center justify-end space-x-8 flex-1">
               <a href="#rooms" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Rooms</a>
               <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Dining</a>
             </div>
             
             <!-- Center Logo -->
-            <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center justify-center px-8">
               <img src={MHLogo} alt="Marle Hall Logo" class="h-8 w-auto mb-1" style="filter: brightness(0) saturate(100%) invert(32%) sepia(53%) saturate(1245%) hue-rotate(25deg) brightness(94%) contrast(89%);" />
               <h1 class="text-sm tracking-[0.2em] uppercase font-lora" style="color: #8a7f52;">Marle Hall</h1>
             </div>
             
             <!-- Right Navigation -->
-            <div class="flex items-center space-x-8 ml-16">
+            <div class="flex items-center justify-start space-x-8 flex-1">
               <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Events</a>
               <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Contact</a>
             </div>

@@ -21,9 +21,9 @@
 </script>
 
 <!-- Fixed Header with Split Navigation -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <nav class="relative h-16 sm:h-20">
+<header class="fixed top-0 left-0 right-0 z-50 bg-marle-gold-50/95 backdrop-blur-sm border-b border-marle-gold-200 py-4 px-4 sm:px-6 lg:px-8 transition-all duration-500">
+  <div class="max-w-6xl mx-auto">
+    <nav class="relative flex items-center justify-between h-12">
       
       <!-- Mobile Layout -->
       <div class="md:hidden flex items-center justify-between h-full">
@@ -51,15 +51,15 @@
       </div>
 
       <!-- Desktop Layout -->
-      <div class="hidden md:flex absolute inset-0 justify-center items-center">
+      <div class="hidden md:flex absolute inset-0 items-center">
         <!-- Left Navigation -->
-        <div class="flex items-center space-x-8 mr-16">
+        <div class="flex items-center justify-end space-x-8 flex-1">
           <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light border-b" style="color: #8a7f52; border-color: #8a7f52;">Rooms</a>
           <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Dining</a>
         </div>
         
         <!-- Center Logo -->
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center justify-center px-8">
           <a href="#" class="flex flex-col items-center hover:opacity-80 transition-opacity">
             <img src={MHLogo} alt="Marle Hall Logo" class="h-8 w-auto mb-1" style="filter: brightness(0) saturate(100%) invert(32%) sepia(53%) saturate(1245%) hue-rotate(25deg) brightness(94%) contrast(89%);" />
             <h1 class="text-sm tracking-[0.2em] uppercase font-lora" style="color: #8a7f52;">Marle Hall</h1>
@@ -67,14 +67,14 @@
         </div>
         
         <!-- Right Navigation -->
-        <div class="flex items-center space-x-8 ml-16">
+        <div class="flex items-center justify-start space-x-8 flex-1">
           <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Events</a>
           <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Contact</a>
         </div>
       </div>
 
       <!-- Mobile Menu Dropdown -->
-      <div class="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-200 transition-all duration-300 {mobileMenuOpen ? 'opacity-100 max-h-64' : 'opacity-0 max-h-0 overflow-hidden'}">
+      <div class="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-marle-gold-200 transition-all duration-300 {mobileMenuOpen ? 'opacity-100 max-h-64' : 'opacity-0 max-h-0 overflow-hidden'}">
         <div class="px-4 py-6 space-y-4">
           <a href="#" class="block text-center py-3 px-4 rounded-lg hover:bg-marle-gold-50 transition-colors text-sm tracking-wide uppercase font-light border-b" style="color: #8a7f52; border-color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Rooms</a>
           <a href="#" class="block text-center py-3 px-4 rounded-lg hover:bg-marle-gold-50 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Dining</a>
@@ -87,7 +87,7 @@
 </header>
 
 <!-- Spacer for fixed header -->
-<div class="h-16 sm:h-20"></div>
+<div class="h-20"></div>
 
 <!-- Page Hero Section -->
 <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-stone-50">
