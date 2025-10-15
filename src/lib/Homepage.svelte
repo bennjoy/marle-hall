@@ -351,7 +351,7 @@
         <div>
           <h4 class="text-stone-800 tracking-wide uppercase font-light mb-3 text-sm">Contact</h4>
           <p class="text-stone-600 font-light leading-relaxed text-xs sm:text-sm">
-            +014 10 25 2340<br>
+            +015 10 25 0953<br>
             reservations@marlehall.co.uk
           </p>
         </div>
