@@ -231,105 +231,21 @@
     </div>
   </section>
 
-  <!-- Heritage Section -->
-  <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-stone-50">
+  <!-- Announcement Section -->
+  <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8" style="background-color: #8a7f52;">
     <div class="max-w-4xl mx-auto text-center">
-      <h3 class="text-2xl sm:text-3xl text-stone-800 tracking-wide uppercase font-lora mb-6 sm:mb-8">Our Heritage</h3>
-      <div class="w-24 h-px bg-stone-400 mx-auto mb-6 sm:mb-8"></div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 text-left">
-        <div>
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">Architecture</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed">
-            The hall features original Georgian windows, ornate cornicing, and period fireplaces 
-            throughout its elegant rooms. Each space tells a story of centuries past.
-          </p>
-        </div>
-        <div>
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">Gardens</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed">
-            Our landscaped grounds span over 50 acres, featuring formal gardens, 
-            woodland walks, and a historic orangery perfect for intimate gatherings.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Rooms Section -->
-  <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 sm:mb-16">
-        <h3 class="text-2xl sm:text-3xl text-stone-800 tracking-wide uppercase font-lora mb-4">Accommodation</h3>
-        <div class="w-24 h-px bg-stone-400 mx-auto mb-4 sm:mb-6"></div>
-        <p class="text-stone-600 font-light text-base sm:text-lg max-w-2xl mx-auto">
-          Each room and suite has been individually designed to reflect the hall's Georgian heritage 
-          while providing every modern comfort.
+      <div class="bg-white bg-opacity-95 rounded-lg p-8 sm:p-12 lg:p-16 shadow-lg">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl text-stone-800 tracking-wide uppercase font-lora mb-4 sm:mb-6">Under Renovation</h2>
+        <div class="w-24 h-px bg-stone-400 mx-auto mb-6 sm:mb-8"></div>
+        <p class="text-base sm:text-lg leading-relaxed text-stone-700 font-lora font-light max-w-2xl mx-auto mb-6 sm:mb-8">
+          We are currently under renovation and looking to open up bookings for weddings and events from <span class="font-semibold">May 2026</span>. 
         </p>
-      </div>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
-        <div class="text-center">
-          <div class="bg-stone-50 h-40 sm:h-48 rounded mb-4 sm:mb-6 flex items-center justify-center">
-            <span class="text-stone-400 text-sm tracking-wide uppercase font-light">Classic Rooms</span>
-          </div>
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3" style="color: #8a7f52;">Heritage Rooms</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed mb-4 text-sm sm:text-base">
-            Thoughtfully appointed rooms featuring original period details and garden views.
-          </p>
-          <p class="text-stone-500 text-sm tracking-wide">From £std per night</p>
-        </div>
-        
-        <div class="text-center">
-          <div class="bg-stone-50 h-40 sm:h-48 rounded mb-4 sm:mb-6 flex items-center justify-center">
-            <span class="text-stone-400 text-sm tracking-wide uppercase font-light">Luxury Suites</span>
-          </div>
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3" style="color: #8a7f52;">Grand Suites</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed mb-4 text-sm sm:text-base">
-            Spacious suites with separate sitting areas and magnificent countryside views.
-          </p>
-          <p class="text-stone-500 text-sm tracking-wide">From £grd per night</p>
-        </div>
-        
-        <div class="text-center sm:col-span-2 lg:col-span-1 mx-auto sm:mx-0 max-w-sm sm:max-w-none">
-          <div class="bg-stone-50 h-40 sm:h-48 rounded mb-4 sm:mb-6 flex items-center justify-center">
-            <span class="text-stone-400 text-sm tracking-wide uppercase font-light">Master Suite</span>
-          </div>
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3" style="color: #8a7f52;">The Marle Suite</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed mb-4 text-sm sm:text-base">
-            Our finest accommodation with period furnishings and private terrace access.
-          </p>
-          <p class="text-stone-500 text-sm tracking-wide">From £mtr per night</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Dining Section -->
-  <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-stone-50">
-    <div class="max-w-4xl mx-auto text-center">
-      <h3 class="text-2xl sm:text-3xl text-stone-800 tracking-wide uppercase font-lora mb-6 sm:mb-8">Dining Experience</h3>
-      <div class="w-24 h-px bg-stone-400 mx-auto mb-6 sm:mb-8"></div>
-      <p class="text-stone-600 font-lora font-light leading-relaxed text-base sm:text-lg mb-8 sm:mb-12">
-        Our executive chef creates seasonal menus celebrating the finest local produce, 
-        served in the grandeur of our original Georgian dining room.
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 text-left">
-        <div class="bg-white p-6 sm:p-8 rounded-lg">
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">The Georgian Restaurant</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
-            Fine dining in an elegant setting with dishes crafted from locally sourced ingredients.
-          </p>
-          <p class="text-stone-500 text-xs sm:text-sm tracking-wide">Open daily for dinner</p>
-        </div>
-        
-        <div class="bg-white p-6 sm:p-8 rounded-lg">
-          <h4 class="text-base sm:text-lg tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">The Morning Room</h4>
-          <p class="text-stone-600 font-lora font-light leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
-            Traditional afternoon tea and light refreshments in our sun-filled conservatory.
-          </p>
-          <p class="text-stone-500 text-xs sm:text-sm tracking-wide">Daily 2:00 PM - 5:00 PM</p>
-        </div>
+        <p class="text-base sm:text-lg leading-relaxed text-stone-700 font-lora font-light max-w-2xl mx-auto mb-8 sm:mb-10">
+          Please <a href="/#/contact" class="font-semibold hover:underline" style="color: #8a7f52;">contact us</a> for photos, pricing, and further information.
+        </p>
+        <a href="/contact" class="inline-block border-2 px-8 sm:px-10 py-3 sm:py-4 tracking-wide uppercase font-fhwa-series text-sm sm:text-base transition-all duration-300 hover:opacity-75" style="color: #8a7f52; border-color: #8a7f52;">
+          Get in Touch
+        </a>
       </div>
     </div>
   </section>
