@@ -5,6 +5,7 @@
   import Events from './lib/UnderConstruction.svelte'
   import Contact from './lib/Contact.svelte'
   import Bookings from './lib/Bookings.svelte'
+  import UnderConstruction from './lib/UnderConstruction.svelte'
   import { fade } from 'svelte/transition'
   
   let currentPage = 'home'
@@ -22,6 +23,8 @@
       currentPage = 'contact'
     } else if (path === '/bookings') {
       currentPage = 'bookings'
+    } else if (path === '/under-construction') {
+      currentPage = 'under-construction'
     } else {
       currentPage = 'home'
     }
@@ -68,6 +71,10 @@
   {:else if currentPage === 'bookings'}
     <div in:fade={{ duration: 300 }} out:fade={{ duration: 200 }}>
       <Bookings />
+    </div>
+  {:else if currentPage === 'under-construction'}
+    <div in:fade={{ duration: 300 }} out:fade={{ duration: 200 }}>
+      <UnderConstruction />
     </div>
   {:else}
     <div in:fade={{ duration: 300 }} out:fade={{ duration: 200 }}>
