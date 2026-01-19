@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font Face Declarations */
+@font-face {
+  font-family: 'FHWA Series D 2020';
+  src: url('./assets/fonts/OLDSH___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Global styles */
 * {
   box-sizing: border-box;
@@ -13,4 +21,10 @@ body {
     'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
+}
+
+/* Navigation font styling */
+.font-fhwa-series {
+  font-family: 'FHWA Series D 2020' !important;
 }

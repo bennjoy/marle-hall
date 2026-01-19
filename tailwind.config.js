@@ -23,6 +23,7 @@ module.exports = {
         'sans': ['Arial', 'sans-serif'],
         'castoro': ['Castoro Titling', 'serif'],
         'lora': ['Lora', 'serif'],
+        'fhwa-series': ['FHWA Series D 2020', 'sans-serif'],
       }
     },
   },

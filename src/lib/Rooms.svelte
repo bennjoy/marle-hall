@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
-  import MHLogo from '../assets/icons/MH.svg'
+  import MHLogo from '../assets/images/MH.svg'
+  import MHHeroMini from '../assets/images/MHHeroMini.svg'
 
   let mobileMenuOpen = false
 
@@ -20,81 +21,75 @@
   })
 </script>
 
-<!-- Fixed Header with Split Navigation -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-marle-gold-50/95 backdrop-blur-sm border-b border-marle-gold-200 py-4 px-4 sm:px-6 lg:px-8 transition-all duration-500">
-  <div class="max-w-6xl mx-auto">
-    <nav class="relative flex items-center justify-between h-12">
-      
-      <!-- Mobile Layout -->
-      <div class="md:hidden flex items-center justify-between h-full">
-        <!-- Mobile Menu Button -->
-        <button 
-          class="flex flex-col items-center justify-center w-6 h-6 focus:outline-none"
-          on:click={() => mobileMenuOpen = !mobileMenuOpen}
-          aria-label="Toggle menu"
-        >
-          <span class="w-5 h-0.5 bg-marle-gold-800 transform transition-all duration-300 {mobileMenuOpen ? 'rotate-45 translate-y-1' : ''}"></span>
-          <span class="w-5 h-0.5 bg-marle-gold-800 transition-all duration-300 {mobileMenuOpen ? 'opacity-0' : 'opacity-100 my-1'}"></span>
-          <span class="w-5 h-0.5 bg-marle-gold-800 transform transition-all duration-300 {mobileMenuOpen ? '-rotate-45 -translate-y-1' : ''}"></span>
-        </button>
-
-        <!-- Mobile Logo -->
-        <div class="flex flex-col items-center">
-          <a href="#" class="flex flex-col items-center hover:opacity-80 transition-opacity">
-            <img src={MHLogo} alt="Marle Hall Logo" class="h-6 w-auto mb-1" style="filter: brightness(0) saturate(100%) invert(32%) sepia(53%) saturate(1245%) hue-rotate(25deg) brightness(94%) contrast(89%);" />
-            <h1 class="text-xs tracking-[0.1em] uppercase font-lora" style="color: #8a7f52;">Marle Hall</h1>
-          </a>
-        </div>
-
-        <!-- Mobile Spacer -->
-        <div class="w-6"></div>
-      </div>
-
-      <!-- Desktop Layout -->
-      <div class="hidden md:flex absolute inset-0 items-center">
-        <!-- Left Navigation -->
-        <div class="flex items-center justify-end space-x-8 flex-1">
-          <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light border-b" style="color: #8a7f52; border-color: #8a7f52;">Rooms</a>
-          <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Dining</a>
-        </div>
-        
-        <!-- Center Logo -->
-        <div class="flex flex-col items-center justify-center px-8">
-          <a href="#" class="flex flex-col items-center hover:opacity-80 transition-opacity">
-            <img src={MHLogo} alt="Marle Hall Logo" class="h-8 w-auto mb-1" style="filter: brightness(0) saturate(100%) invert(32%) sepia(53%) saturate(1245%) hue-rotate(25deg) brightness(94%) contrast(89%);" />
-            <h1 class="text-sm tracking-[0.2em] uppercase font-lora" style="color: #8a7f52;">Marle Hall</h1>
-          </a>
-        </div>
-        
-        <!-- Right Navigation -->
-        <div class="flex items-center justify-start space-x-8 flex-1">
-          <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Events</a>
-          <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;">Contact</a>
-        </div>
-      </div>
-
-      <!-- Mobile Menu Dropdown -->
-      <div class="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-marle-gold-200 transition-all duration-300 {mobileMenuOpen ? 'opacity-100 max-h-64' : 'opacity-0 max-h-0 overflow-hidden'}">
-        <div class="px-4 py-6 space-y-4">
-          <a href="#" class="block text-center py-3 px-4 rounded-lg hover:bg-marle-gold-50 transition-colors text-sm tracking-wide uppercase font-light border-b" style="color: #8a7f52; border-color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Rooms</a>
-          <a href="#" class="block text-center py-3 px-4 rounded-lg hover:bg-marle-gold-50 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Dining</a>
-          <a href="#" class="block text-center py-3 px-4 rounded-lg hover:bg-marle-gold-50 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Events</a>
-          <a href="#" class="block text-center py-3 px-4 rounded-lg hover:bg-marle-gold-50 transition-colors text-sm tracking-wide uppercase font-light" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Contact</a>
-        </div>
-      </div>
-    </nav>
+<!-- Fixed Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-none border-b border-transparent py-4 transition-all duration-500">
+  <!-- Desktop Navigation - Permanently Split -->
+  <div class="hidden md:flex absolute top-0 left-0 right-0 flex items-center justify-between h-20 w-screen px-8">
+    <!-- Left Navigation -->
+    <div class="flex items-center justify-end space-x-8 flex-1">
+      <a href="#rooms" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wider uppercase font-bold font-fhwa-series text-black">Rooms</a>
+      <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wider uppercase font-bold font-fhwa-series text-black">Dining</a>
+    </div>
+    
+    <!-- Center Logo -->
+    <div class="flex items-center justify-center px-12 flex-shrink-0">
+      <a href="/" class="hover:opacity-80 transition-opacity">
+        <img src={MHHeroMini} alt="Marle Hall" class="h-12 w-auto" />
+      </a>
+    </div>
+    
+    <!-- Right Navigation -->
+    <div class="flex items-center justify-start space-x-8 flex-1">
+      <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wider uppercase font-bold font-fhwa-series text-black">Events</a>
+      <a href="#" class="hover:text-marle-gold-900 transition-colors text-sm tracking-wider uppercase font-bold font-fhwa-series text-black">Contact</a>
+    </div>
   </div>
+
+  <!-- Mobile Navigation -->
+  <nav class="relative flex items-center justify-between h-12 w-full md:hidden">
+    <!-- Max width container for mobile button and logo -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between w-full">
+      <!-- Mobile Menu Button -->
+      <button 
+        class="flex flex-col items-center justify-center w-6 h-6 focus:outline-none"
+        on:click={() => mobileMenuOpen = !mobileMenuOpen}
+        aria-label="Toggle menu"
+      >
+        <span class="w-5 h-0.5 transform transition-all duration-300 {mobileMenuOpen ? 'rotate-45 translate-y-1' : ''}" style="background-color: #8a7f52;"></span>
+        <span class="w-5 h-0.5 transition-all duration-300 {mobileMenuOpen ? 'opacity-0' : 'opacity-100 my-1'}" style="background-color: #8a7f52;"></span>
+        <span class="w-5 h-0.5 transform transition-all duration-300 {mobileMenuOpen ? '-rotate-45 -translate-y-1' : ''}" style="background-color: #8a7f52;"></span>
+      </button>
+
+      <!-- Mobile Logo -->
+      <a href="/" class="flex flex-col items-center hover:opacity-80 transition-opacity">
+        <img src={MHLogo} alt="Marle Hall Logo" class="h-8 w-auto" style="filter: brightness(0) saturate(100%) invert(32%) sepia(53%) saturate(1245%) hue-rotate(25deg) brightness(94%) contrast(89%);" />
+      </a>
+
+      <!-- Mobile Menu Spacer -->
+      <div class="w-6"></div>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div class="absolute top-full left-0 right-0 bg-white shadow-lg transition-all duration-300 {mobileMenuOpen ? 'opacity-100 max-h-64' : 'opacity-0 max-h-0 overflow-hidden'}" style="border-top: 1px solid #8a7f52;">
+      <div class="px-4 py-6 space-y-4">
+        <a href="/rooms" class="block text-center py-3 px-4 rounded-lg transition-colors text-sm tracking-wide uppercase font-bold font-fhwa-series hover:opacity-70" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Rooms</a>
+        <a href="/weddings" class="block text-center py-3 px-4 rounded-lg transition-colors text-sm tracking-wide uppercase font-bold font-fhwa-series hover:opacity-70" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Weddings</a>
+        <a href="/events" class="block text-center py-3 px-4 rounded-lg transition-colors text-sm tracking-wide uppercase font-bold font-fhwa-series hover:opacity-70" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Events</a>
+        <a href="/contact" class="block text-center py-3 px-4 rounded-lg transition-colors text-sm tracking-wide uppercase font-bold font-fhwa-series hover:opacity-70" style="color: #8a7f52;" on:click={() => mobileMenuOpen = false}>Contact</a>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <!-- Spacer for fixed header -->
-<div class="h-20"></div>
+<div class="h-24"></div>
 
 <!-- Page Hero Section -->
 <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-stone-50">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl tracking-wide uppercase font-lora mb-4 sm:mb-6" style="color: #8a7f52;">Accommodation</h2>
-    <div class="w-24 h-px bg-marle-gold-600 mx-auto mb-6 sm:mb-8"></div>
-    <p class="text-lg sm:text-xl leading-relaxed text-gray-700 font-light">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl tracking-wide uppercase font-fhwa-series mb-4 sm:mb-6" style="color: #8a7f52;">Accommodation</h2>
+    <div class="w-24 h-px mx-auto mb-6 sm:mb-8" style="background-color: #8a7f52;"></div>
+    <p class="text-lg sm:text-xl leading-relaxed text-gray-700 font-lora font-light">
       Each room and suite has been individually designed to reflect the hall's Georgian heritage while providing every modern comfort for the discerning traveller.
     </p>
   </div>
@@ -110,8 +105,8 @@
         <div class="bg-stone-100 rounded-lg mb-4 sm:mb-6 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
           <img src={MHLogo} alt="Heritage Room" class="h-16 sm:h-20 w-auto opacity-30" />
         </div>
-        <h3 class="text-xl sm:text-2xl tracking-wide uppercase font-lora mb-3 sm:mb-4" style="color: #8a7f52;">Heritage Rooms</h3>
-        <p class="text-gray-600 font-light leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+        <h3 class="text-xl sm:text-2xl tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">Heritage Rooms</h3>
+        <p class="text-gray-600 font-lora font-light leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
           Thoughtfully appointed rooms featuring original period details, garden views, and carefully selected antique furnishings that tell the story of Marle Hall's rich history.
         </p>
         <div class="text-left space-y-1 sm:space-y-2 mb-4 sm:mb-6">
@@ -128,8 +123,8 @@
         <div class="bg-stone-100 rounded-lg mb-4 sm:mb-6 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
           <img src={MHLogo} alt="Superior Suite" class="h-16 sm:h-20 w-auto opacity-30" />
         </div>
-        <h3 class="text-xl sm:text-2xl tracking-wide uppercase font-lora mb-3 sm:mb-4" style="color: #8a7f52;">Superior Suites</h3>
-        <p class="text-gray-600 font-light leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+        <h3 class="text-xl sm:text-2xl tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">Superior Suites</h3>
+        <p class="text-gray-600 font-lora font-light leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
           Spacious suites combining period elegance with contemporary luxury. Each suite features a separate seating area and panoramic views across the estate grounds.
         </p>
         <div class="text-left space-y-1 sm:space-y-2 mb-4 sm:mb-6">
@@ -146,8 +141,8 @@
         <div class="bg-stone-100 rounded-lg mb-4 sm:mb-6 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
           <img src={MHLogo} alt="Master Suite" class="h-16 sm:h-20 w-auto opacity-30" />
         </div>
-        <h3 class="text-xl sm:text-2xl tracking-wide uppercase font-lora mb-3 sm:mb-4" style="color: #8a7f52;">Master Suite</h3>
-        <p class="text-gray-600 font-light leading-relaxed mb-6">
+        <h3 class="text-xl sm:text-2xl tracking-wide uppercase font-fhwa-series mb-3 sm:mb-4" style="color: #8a7f52;">Master Suite</h3>
+        <p class="text-gray-600 font-lora font-light leading-relaxed mb-6">
           The crown jewel of Marle Hall. This magnificent suite occupies the entire wing, featuring period furniture, panoramic Snowdonia views, and unparalleled luxury.
         </p>
         <div class="text-left space-y-2 mb-6">
