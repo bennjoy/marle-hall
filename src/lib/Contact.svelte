@@ -5,6 +5,41 @@
   import MHLineart from '../assets/images/MHlineart.svg'
 
   let mobileMenuOpen = false
+  let isSubmitting = false
+  let submitMessage = ''
+  let submitSuccess = false
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    isSubmitting = true
+    submitMessage = ''
+    
+    const formData = new FormData(e.target)
+    
+    try {
+      const response = await fetch('https://formspree.io/f/xvgozwyb', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      
+      if (response.ok) {
+        submitSuccess = true
+        submitMessage = 'Thank you! Your message has been sent successfully.'
+        e.target.reset()
+      } else {
+        submitSuccess = false
+        submitMessage = 'There was an error sending your message. Please try again.'
+      }
+    } catch (error) {
+      submitSuccess = false
+      submitMessage = 'There was an error sending your message. Please try again.'
+    }
+    
+    isSubmitting = false
+  }
 
   onMount(() => {
     // Close mobile menu when clicking outside
@@ -144,7 +179,13 @@
     <h3 class="text-2xl sm:text-3xl tracking-wide uppercase font-fhwa-series mb-8 text-center" style="color: #8a7f52;">Send us a Message</h3>
     <div class="w-24 h-px mx-auto mb-12" style="background-color: #8a7f52;"></div>
     
-    <form class="space-y-6">
+    {#if submitMessage}
+      <div class="mb-6 p-4 rounded-lg {submitSuccess ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} text-center">
+        {submitMessage}
+      </div>
+    {/if}
+    
+    <form class="space-y-6" on:submit={handleSubmit}>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label for="name" class="block text-stone-700 text-sm tracking-wide uppercase font-light mb-2">Name</label>
@@ -155,6 +196,7 @@
             class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:border-marle-gold-400 focus:ring-1 focus:ring-marle-gold-400 font-light"
             placeholder="Your name"
             required
+            disabled={isSubmitting}
           />
         </div>
         <div>
@@ -166,6 +208,7 @@
             class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:border-marle-gold-400 focus:ring-1 focus:ring-marle-gold-400 font-light"
             placeholder="your@email.com"
             required
+            disabled={isSubmitting}
           />
         </div>
       </div>
@@ -179,6 +222,7 @@
           class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:border-marle-gold-400 focus:ring-1 focus:ring-marle-gold-400 font-light"
           placeholder="Message subject"
           required
+          disabled={isSubmitting}
         />
       </div>
 
@@ -191,16 +235,18 @@
           class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:border-marle-gold-400 focus:ring-1 focus:ring-marle-gold-400 font-light resize-none"
           placeholder="Your message here..."
           required
+          disabled={isSubmitting}
         ></textarea>
       </div>
 
       <div class="flex justify-center pt-4">
         <button 
           type="submit"
-          class="px-6 py-2 border-2 transition-all duration-300 hover:opacity-80 text-sm tracking-wider uppercase font-bold font-fhwa-series"
+          class="px-6 py-2 border-2 transition-all duration-300 hover:opacity-80 text-sm tracking-wider uppercase font-bold font-fhwa-series disabled:opacity-50 disabled:cursor-not-allowed"
           style="border-color: #8a7f52; color: #8a7f52;"
+          disabled={isSubmitting}
         >
-          Send Message
+          {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>
       </div>
     </form>
