@@ -7,5 +7,9 @@ export default defineConfig({
   base: '/', // Use this for custom domains
   build: {
     outDir: 'dist'
+  },
+  server: {
+    middlewareMode: false,
+    historyApiFallback: true
   }
 })

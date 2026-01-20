@@ -15,14 +15,20 @@
     submitMessage = ''
     
     const formData = new FormData(e.target)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message')
+    }
     
     try {
-      const response = await fetch('https://formspree.io/f/xvgozwyb', {
+      const response = await fetch('https://formspree.io/f/m29kdbzv', {
         method: 'POST',
-        body: formData,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
       
       if (response.ok) {
@@ -34,8 +40,9 @@
         submitMessage = 'There was an error sending your message. Please try again.'
       }
     } catch (error) {
+      console.error('Form submission error:', error)
       submitSuccess = false
-      submitMessage = 'There was an error sending your message. Please try again.'
+      submitMessage = 'There was an error sending your message. Please check your connection and try again.'
     }
     
     isSubmitting = false
