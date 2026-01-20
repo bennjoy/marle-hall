@@ -18,15 +18,15 @@
     const formData = new FormData(formElement)
     
     try {
-      const response = await fetch('https://formspree.io/f/xvgozwyb', {
+      // Send to a backend-less email service
+      const response = await fetch('https://formspree.io/f/mldjdrgw', {
         method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        body: formData
       })
       
-      if (response.ok) {
+      const data = await response.json()
+      
+      if (data.ok || response.ok) {
         submitSuccess = true
         submitMessage = 'Thank you! Your message has been sent successfully to bookings@marlehall.org.uk'
         formElement.reset()
@@ -38,6 +38,13 @@
         submitMessage = 'There was an error sending your message. Please try again.'
       }
     } catch (error) {
+      console.error('Form submission error:', error)
+      submitSuccess = false
+      submitMessage = 'There was an error sending your message. Please try again.'
+    }
+    
+    isSubmitting = false
+  }
       console.error('Form submission error:', error)
       submitSuccess = false
       submitMessage = 'There was an error sending your message. Please try again.'
