@@ -33,6 +33,12 @@
   // Set up routing on mount
   import { onMount } from 'svelte'
   onMount(() => {
+    // Handle GitHub Pages SPA routing redirect
+    if (sessionStorage.redirect) {
+      delete sessionStorage.redirect
+      // The URL is already set by 404.html, just navigate normally
+    }
+    
     handleNavigation()
     window.addEventListener('popstate', handleNavigation)
     
