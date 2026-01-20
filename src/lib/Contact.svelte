@@ -45,13 +45,6 @@
     
     isSubmitting = false
   }
-      console.error('Form submission error:', error)
-      submitSuccess = false
-      submitMessage = 'There was an error sending your message. Please try again.'
-    }
-    
-    isSubmitting = false
-  }
 
   onMount(() => {
     // Close mobile menu when clicking outside
