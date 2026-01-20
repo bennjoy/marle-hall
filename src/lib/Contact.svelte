@@ -19,7 +19,7 @@
     
     try {
       // Send to a backend-less email service
-      const response = await fetch('https://formspree.io/f/mldjdrgw', {
+      const response = await fetch('https://formspree.io/f/xaqqdbal', {
         method: 'POST',
         body: formData
       })
