@@ -14,20 +14,22 @@
     isSubmitting = true
     submitMessage = ''
     
-    const formData = new FormData(e.target)
+    const formElement = e.target
+    const formData = new FormData(formElement)
     
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('https://formspree.io/f/xvgozwyb', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       })
       
-      const json = await response.json()
-      
-      if (json.success) {
+      if (response.ok) {
         submitSuccess = true
         submitMessage = 'Thank you! Your message has been sent successfully to bookings@marlehall.org.uk'
-        e.target.reset()
+        formElement.reset()
         setTimeout(() => {
           submitMessage = ''
         }, 5000)
@@ -189,9 +191,6 @@
     {/if}
     
     <form class="space-y-6" on:submit={handleSubmit}>
-      <input type="hidden" name="access_key" value="9a976fec-89c9-4d86-9c57-68e0a1d8e2f3" />
-      <input type="hidden" name="redirect" value="https://marle-hall.vercel.app/contact" />
-      <input type="hidden" name="from_name" value="Marle Hall Contact Form" />
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label for="name" class="block text-stone-700 text-sm tracking-wide uppercase font-light mb-2">Name</label>
