@@ -15,26 +15,22 @@
     submitMessage = ''
     
     const formData = new FormData(e.target)
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject'),
-      message: formData.get('message')
-    }
     
     try {
-      const response = await fetch('https://formspree.io/f/m29kdbzv', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        body: formData
       })
       
-      if (response.ok) {
+      const json = await response.json()
+      
+      if (json.success) {
         submitSuccess = true
-        submitMessage = 'Thank you! Your message has been sent successfully.'
+        submitMessage = 'Thank you! Your message has been sent successfully to bookings@marlehall.org.uk'
         e.target.reset()
+        setTimeout(() => {
+          submitMessage = ''
+        }, 5000)
       } else {
         submitSuccess = false
         submitMessage = 'There was an error sending your message. Please try again.'
@@ -42,7 +38,7 @@
     } catch (error) {
       console.error('Form submission error:', error)
       submitSuccess = false
-      submitMessage = 'There was an error sending your message. Please check your connection and try again.'
+      submitMessage = 'There was an error sending your message. Please try again.'
     }
     
     isSubmitting = false
@@ -193,6 +189,9 @@
     {/if}
     
     <form class="space-y-6" on:submit={handleSubmit}>
+      <input type="hidden" name="access_key" value="9a976fec-89c9-4d86-9c57-68e0a1d8e2f3" />
+      <input type="hidden" name="redirect" value="https://marle-hall.vercel.app/contact" />
+      <input type="hidden" name="from_name" value="Marle Hall Contact Form" />
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label for="name" class="block text-stone-700 text-sm tracking-wide uppercase font-light mb-2">Name</label>
