@@ -35,8 +35,10 @@
   onMount(() => {
     // Handle GitHub Pages SPA routing redirect
     if (sessionStorage.redirect) {
+      const redirect = sessionStorage.redirect
       delete sessionStorage.redirect
-      // The URL is already set by 404.html, just navigate normally
+      // Restore the original URL without showing the redirect
+      window.history.replaceState({}, '', redirect)
     }
     
     handleNavigation()

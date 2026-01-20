@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <title>Marle Hall</title>
     <script>
-      // Store the original URL for the app to use
-      sessionStorage.redirect = location.href;
-      // Silently replace history so the URL doesn't show /index.html
-      location.replace(location.href.split('/').slice(0, 3).join('/') + '/index.html');
+      // Store the original pathname for the app to restore
+      const path = location.pathname;
+      if (path !== '/index.html') {
+        sessionStorage.redirect = path;
+        location.replace(location.href.split('/').slice(0, 3).join('/') + '/index.html');
+      }
     </script>
   </head>
   <body>
