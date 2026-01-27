@@ -205,7 +205,7 @@
     <div class="relative z-20 flex flex-col items-center justify-center w-full h-full">
       <!-- Central Logo Display -->
       <div class="flex flex-col items-center justify-center">
-        <img src={MHHeroBorder} alt="Marle Hall" class="h-64 sm:h-64 md:h-64 w-auto" style="filter: brightness(0) invert(1);" />
+        <img src={MHHero} alt="Marle Hall" class="h-32 sm:h-40 md:h-56 w-auto" style="filter: brightness(0) invert(1);" />
       </div>
     </div>
   </main>
