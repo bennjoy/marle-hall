@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import MHLogo from '../assets/images/MH.svg'
   import MHHero from '../assets/images/MHHero.svg'
+  import MHHeroBorder from '../assets/images/MHHeroBorder.svg'
   import MHHeroMini from '../assets/images/MHHeroMini.svg'
   import DecorativeDivider from '../assets/images/DecorativeDivider182.svg'
   import droneVideo1 from '../assets/images/ai-drone-1.mp4'
@@ -204,7 +205,7 @@
     <div class="relative z-20 flex flex-col items-center justify-center w-full h-full">
       <!-- Central Logo Display -->
       <div class="flex flex-col items-center justify-center">
-        <img src={MHHero} alt="Marle Hall" class="h-32 sm:h-40 md:h-56 w-auto" style="filter: brightness(0) invert(1);" />
+        <img src={MHHeroBorder} alt="Marle Hall" class="h-32 sm:h-40 md:h-56 w-auto" style="filter: brightness(0) invert(1);" />
       </div>
     </div>
   </main>
