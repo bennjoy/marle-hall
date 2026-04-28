@@ -1,25 +1,817 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Modern browsers -->
-    <link rel="icon" type="image/svg+xml" href="/src/assets/icons/MH.svg" />
-    <!-- Fallback for older browsers -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/icons/MH.svg" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/icons/MH.svg" />
-    <!-- Traditional favicon -->
-    <link rel="shortcut icon" href="/src/assets/icons/favicon.ico" />
-    <link rel="icon" type="image/x-icon" href="/src/assets/icons/favicon.ico" />
-    <!-- Apple devices -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/icons/MH.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Castoro+Titling&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <title>Marle Hall - Georgian Heritage Hotel</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marle Hall — A Country House Hotel of Distinction</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+                   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/" } }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Engravers Roman';
+      src: url("assets/Engravers' Roman Regular.otf") format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── Reset & Base ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:  #1a3d2e;
+      --green-mid: #254536;
+      --ivory:  #f5f0e8;
+      --cream:  #ede5d0;
+      --gold:   #b89a56;
+      --gold-light: #d4b87a;
+      --charcoal: #1c1c1c;
+      --text:   #2e2a22;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      background: var(--ivory);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── Typography ─────────────────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+    }
+    .overline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .gold-divider {
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.2rem auto;
+    }
+    .gold-divider.left { margin-left: 0; }
+
+    /* ─── Navigation ─────────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(20, 30, 24, 0.97);
+      padding: 1rem 3rem;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .nav-logo img {
+      width: 38px;
+      height: auto;
+      object-fit: unset;
+      filter: brightness(0) invert(1);
+    }
+    .nav-wordmark {
+      font-family: 'Engravers Roman', 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: white;
+      font-weight: normal;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-utility {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-utility a {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      transition: color 0.25s;
+    }
+    .nav-utility a:hover { color: var(--gold-light); }
+    .nav-booknow {
+      border: 1px solid var(--gold);
+      padding: 0.5rem 1.2rem;
+      color: var(--gold) !important;
+      transition: background 0.25s, color 0.25s !important;
+    }
+    .nav-booknow:hover {
+      background: var(--gold) !important;
+      color: var(--charcoal) !important;
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1px; background: white;
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-media {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-media video,
+    .hero-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,20,14,0.35) 0%,
+        rgba(10,20,14,0.50) 50%,
+        rgba(10,20,14,0.72) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+      animation: fadeInUp 1.4s ease forwards;
+    }
+    .hero-logo {
+      width: clamp(220px, 28vw, 360px);
+      height: auto;
+      object-fit: unset;
+      margin: 0 auto 2rem;
+      filter: brightness(0) invert(1);
+    }
+    .hero-tagline {
+      margin-top: 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.04em;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: white;
+      border: 1px solid rgba(184,154,86,0.7);
+      padding: 0.85rem 2.5rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .hero-cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* ─── Booking Bar ────────────────────────────────────────────────────────── */
+    .booking-bar {
+      position: relative;
+      z-index: 10;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .booking-bar label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .booking-field {
+      flex: 1;
+      min-width: 160px;
+      padding: 1rem 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .booking-field input,
+    .booking-field select {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      width: 100%;
+      cursor: pointer;
+    }
+    .booking-field input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) opacity(0.4);
+      cursor: pointer;
+    }
+    .booking-field select option { background: var(--green); }
+    .booking-submit {
+      background: var(--gold);
+      border: none;
+      color: var(--charcoal);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 1.5rem 2.5rem;
+      cursor: pointer;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+    .booking-submit:hover { background: var(--gold-light); }
+
+    /* ─── Section Shared ─────────────────────────────────────────────────────── */
+    section { position: relative; }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section-pad { padding: 7rem 0; }
+
+    /* ─── Introduction ───────────────────────────────────────────────────────── */
+    #introduction {
+      background: var(--ivory);
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .intro-left h2 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+    }
+    .intro-left p {
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: #4a4235;
+      margin-bottom: 1rem;
+    }
+    .intro-right {
+      padding-top: 1rem;
+    }
+    .key-facts {
+      border-top: 1px solid var(--cream);
+    }
+    .key-fact {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--cream);
+    }
+    .key-fact-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--gold);
+      min-width: 80px;
+      line-height: 1;
+    }
+    .key-fact-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6b6050;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--charcoal);
+      padding: 5rem 0 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .footer-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .footer-logo-row img {
+      width: 44px;
+      height: auto;
+      object-fit: unset;
+      filter: brightness(0) invert(1) opacity(0.6);
+    }
+    .footer-logo-row span {
+      font-family: 'Engravers Roman', 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+      font-weight: normal;
+    }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 3rem;
+    }
+    .footer-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.7rem;
+    }
+    .footer-col ul li a {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      transition: color 0.25s;
+    }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copyright {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+    }
+    .footer-social {
+      display: flex;
+      gap: 1.2rem;
+    }
+    .footer-social a {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.25s;
+    }
+    .footer-social a:hover { color: var(--gold); }
+    .footer-awards {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .award-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.4rem 0.8rem;
+    }
+
+    /* ─── Intro 3D Model ─────────────────────────────────────────────────────── */
+    .intro-model-wrap {
+      width: 100%;
+      height: 420px;
+      position: relative;
+    }
+    #intro-3d-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+    #intro-3d-canvas:active { cursor: grabbing; }
+
+    /* ─── Animations ─────────────────────────────────────────────────────────── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-utility a:not(.nav-booknow) { display: none; }
+      .nav-hamburger { display: flex; }
+      .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-cols { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .nav { padding: 1.2rem 1.5rem; }
+      .nav.scrolled { padding: 0.9rem 1.5rem; }
+      .booking-bar { flex-direction: column; }
+      .booking-field { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .booking-submit { width: 100%; padding: 1.2rem; }
+      .footer-cols { grid-template-columns: 1fr; }
+      .footer-awards { display: none; }
+    }
+
+    /* ─── Booking Modal ──────────────────────────────────────────────────────── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,20,14,0.72);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--ivory);
+      max-width: 480px;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      animation: fadeInUp 0.35s ease forwards;
+    }
+    .modal .gold-divider { margin: 1rem auto 1.5rem; }
+    .modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--green);
+      margin-bottom: 0;
+    }
+    .modal p {
+      font-size: 0.83rem;
+      line-height: 1.8;
+      color: #4a4235;
+      margin-bottom: 2rem;
+    }
+    .modal p a {
+      color: var(--green);
+      border-bottom: 1px solid var(--gold);
+    }
+    .modal-close {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--green);
+      color: var(--ivory);
+      border: none;
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      transition: background 0.25s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .modal-close:hover { background: var(--gold); color: var(--charcoal); }
+
+  </style>
+</head>
+<body>
+
+  <!-- ─── Navigation ─────────────────────────────────────────────────────── -->
+  <nav class="nav" id="mainNav">
+    <a href="#" class="nav-logo">
+      <img src="assets/MH.svg" alt="Marle Hall monogram" />
+      <span class="nav-wordmark">MARLE HALL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="tbc.html">Rooms &amp; Suites</a></li>
+      <li><a href="tbc.html">Things To Do</a></li>
+      <li><a href="tbc.html">Weddings</a></li>
+    </ul>
+    <div class="nav-utility">
+      <a href="#booking" class="nav-booknow">Book Now</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ───────────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-media">
+      <video autoplay muted loop playsinline poster="assets/MHwhite.png">
+        <source src="assets/ai-drone-1.mp4" type="video/mp4" />
+        <img src="https://picsum.photos/seed/marlehall/1920/1080" alt="Marle Hall grounds" />
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="assets/MHHero.svg" alt="Marle Hall" class="hero-logo" />
+      <a href="#booking" class="hero-cta">Book Your Stay</a>
+    </div>
+  </section>
+
+  <!-- ─── Booking Bar ────────────────────────────────────────────────────── -->
+  <div class="booking-bar" id="booking">
+    <div class="booking-field">
+      <label for="arrival">Arrival</label>
+      <input type="date" id="arrival" />
+    </div>
+    <div class="booking-field">
+      <label for="departure">Departure</label>
+      <input type="date" id="departure" />
+    </div>
+    <div class="booking-field">
+      <label for="rooms-count">Rooms</label>
+      <select id="rooms-count">
+        <option>1 Room</option>
+        <option>2 Rooms</option>
+        <option>3 Rooms</option>
+        <option>4+ Rooms</option>
+      </select>
+    </div>
+    <div class="booking-field">
+      <label for="guests">Guests</label>
+      <select id="guests">
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3 Guests</option>
+        <option>4 Guests</option>
+        <option>5+ Guests</option>
+      </select>
+    </div>
+    <button class="booking-submit">Check Availability</button>
+  </div>
+
+  <!-- ─── Introduction ──────────────────────────────────────────────────── -->
+  <section id="introduction">
+    <div class="section-inner section-pad">
+      <div class="intro-grid">
+        <div class="intro-left reveal">
+          <span class="overline">Welcome</span>
+          <span class="gold-divider left"></span>
+          <h2>A House Steeped<br />in Living History</h2>
+          <p>A gorgeous Grade-II listed country house hotel built in 1661, nestled on a hill within 30 acres of pasture and woodland. Experience the panoramic views of the Snowdonia national park, and the coastal sights of the West Shore.</p>
+        </div>
+        <div class="intro-right reveal reveal-delay-2">
+          <div class="intro-model-wrap">
+            <canvas id="intro-3d-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo-row">
+        <img src="assets/MH.svg" alt="Marle Hall" />
+        <span>MARLE HALL</span>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>The Hotel</h4>
+          <ul>
+            <li><a href="tbc.html">Our Story</a></li>
+            <li><a href="tbc.html">Rooms &amp; Suites</a></li>
+            <li><a href="tbc.html">Things To Do</a></li>
+            <li><a href="tbc.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Events</h4>
+          <ul>
+            <li><a href="tbc.html">Weddings</a></li>
+            <li><a href="tbc.html">Corporate Retreats</a></li>
+            <li><a href="tbc.html">Exclusive Use</a></li>
+            <li><a href="tbc.html">Seasonal Celebrations</a></li>
+            <li><a href="tbc.html">Gift Vouchers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Information</h4>
+          <ul>
+            <li><a href="tbc.html">Getting Here</a></li>
+<!--             <li><a href="#">Accessibility</a></li>
+            <li><a href="#">Getting Here</a></li>
+            <li><a href="#">Manage My Booking</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Cookie Settings</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li> -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 Marle Hall.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/marlehallestate">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Booking Modal ─────────────────────────────────────────────────────── -->
+  <div class="modal-backdrop" id="bookingModal">
+    <div class="modal">
+      <span class="overline">Bookings</span>
+      <span class="gold-divider"></span>
+      <h3>Not Currently Available</h3>
+      <span class="gold-divider"></span>
+      <p>Marle Hall is not currently taking bookings at this time. Please check back later, or for more information contact <a href="mailto:bookings@marlehall.org.uk">bookings@marlehall.org.uk</a></p>
+      <button class="modal-close" id="modalClose">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ─── Booking modal ───────────────────────────────────────────────────────
+    const bookingModal   = document.getElementById('bookingModal');
+    const modalClose     = document.getElementById('modalClose');
+    const bookingSubmit  = document.querySelector('.booking-submit');
+
+    bookingSubmit.addEventListener('click', () => bookingModal.classList.add('open'));
+    modalClose.addEventListener('click',    () => bookingModal.classList.remove('open'));
+    bookingModal.addEventListener('click', (e) => {
+      if (e.target === bookingModal) bookingModal.classList.remove('open');
+    });
+
+    // ─── Nav scroll state ────────────────────────────────────────────────────
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ─── Scroll reveal ───────────────────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ─── Parallax hero ───────────────────────────────────────────────────────
+    const heroMedia = document.querySelector('.hero-media');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (heroMedia && y < window.innerHeight) {
+        heroMedia.style.transform = `translateY(${y * 0.35}px)`;
+      }
+    });
+
+    // ─── Default booking dates ───────────────────────────────────────────────
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    const nextDay = new Date(today);
+    nextDay.setDate(today.getDate() + 2);
+
+    const fmt = d => d.toISOString().split('T')[0];
+    const arrivalInput = document.getElementById('arrival');
+    const departureInput = document.getElementById('departure');
+    if (arrivalInput) arrivalInput.value = fmt(tomorrow);
+    if (departureInput) departureInput.value = fmt(nextDay);
+
+    arrivalInput?.addEventListener('change', () => {
+      const a = new Date(arrivalInput.value);
+      const d = new Date(departureInput.value);
+      if (d <= a) {
+        const next = new Date(a);
+        next.setDate(a.getDate() + 1);
+        departureInput.value = fmt(next);
+      }
+      departureInput.min = arrivalInput.value;
+    });
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { OBJLoader }     from 'three/addons/loaders/OBJLoader.js';
+
+    window.addEventListener('load', () => {
+      const canvas = document.getElementById('intro-3d-canvas');
+      const wrap   = canvas.parentElement;
+      const H      = 420;
+      const W      = wrap.clientWidth || 600;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(W, H);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      const scene  = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 1000);
+      camera.position.set(0, 2, 10);
+
+      scene.add(new THREE.AmbientLight(0xf5f0e8, 0.8));
+      const key = new THREE.DirectionalLight(0xd4b87a, 2.0);
+      key.position.set(3, 6, 4);
+      scene.add(key);
+      const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+      fill.position.set(-4, 2, -3);
+      scene.add(fill);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping   = true;
+      controls.dampingFactor   = 0.06;
+      controls.enableZoom      = false;
+      controls.autoRotate      = true;
+      controls.autoRotateSpeed = 0.7;
+      controls.minPolarAngle   = Math.PI * 0.2;
+      controls.maxPolarAngle   = Math.PI * 0.65;
+
+      const loader = new OBJLoader();
+      loader.load('lowres.obj', (obj) => {
+        const box    = new THREE.Box3().setFromObject(obj);
+        const size   = box.getSize(new THREE.Vector3());
+        const centre = box.getCenter(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale  = 3.0 / maxDim;
+        obj.scale.setScalar(scale);
+        obj.position.sub(centre.clone().multiplyScalar(scale));
+        obj.rotation.x = Math.PI;
+        obj.traverse(c => {
+          if (c.isMesh) c.material = new THREE.MeshStandardMaterial({
+            color: 0xffffff, roughness: 0.6, metalness: 0.0,
+          });
+        });
+        scene.add(obj);
+        camera.position.set(0, size.y * scale * 0.3, maxDim * scale * 1.8);
+        controls.target.set(0, 0, 0);
+        controls.update();
+      });
+
+      (function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      })();
+
+      window.addEventListener('resize', () => {
+        const w = wrap.clientWidth;
+        renderer.setSize(w, H);
+        camera.aspect = w / H;
+        camera.updateProjectionMatrix();
+      });
+    });
+  </script>
+</body>
 </html>

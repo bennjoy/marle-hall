@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon — Marle Hall</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Engravers Roman';
+      src: url("assets/Engravers' Roman Regular.otf") format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:  #1a3d2e;
+      --gold:   #b89a56;
+      --gold-light: #d4b87a;
+      --ivory:  #f5f0e8;
+      --charcoal: #1c1c1c;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      background: var(--green);
+      color: var(--ivory);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Background texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(184,154,86,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      animation: fadeIn 1.6s ease forwards;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 4rem;
+    }
+    .logo-row img {
+      width: 44px;
+      height: auto;
+      filter: brightness(0) invert(1) opacity(0.6);
+    }
+    .wordmark {
+      font-family: 'Engravers Roman', 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
+      font-weight: normal;
+    }
+
+    .gold-rule {
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+      opacity: 0.7;
+    }
+
+    .overline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.6rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 1.15;
+      color: var(--ivory);
+      margin-bottom: 2rem;
+    }
+
+    .body-text {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: rgba(245,240,232,0.55);
+      max-width: 420px;
+      margin-bottom: 3rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(184,154,86,0.45);
+      padding: 0.8rem 2rem;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .back-link:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--charcoal);
+    }
+
+    .footer-note {
+      position: fixed;
+      bottom: 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.18);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="logo-row">
+      <img src="assets/MH.svg" alt="Marle Hall monogram" />
+      <span class="wordmark">MARLE HALL</span>
+    </div>
+
+    <span class="overline">Currently Under Renovation</span>
+    <span class="gold-rule"></span>
+
+    <h1>Something<br /><em>Wonderful</em> Awaits</h1>
+
+    <p class="body-text">
+      This part of Marle Hall is being thoughtfully restored. We look forward to welcoming you properly very soon.
+    </p>
+
+    <a href="index.html" class="back-link">← Return to the Hall</a>
+  </div>
+
+  <p class="footer-note">© 2025 Marle Hall. All rights reserved.</p>
+
+</body>
+</html>
