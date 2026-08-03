@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Getting Here — Marle Hall</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Engravers Roman';
+      src: url("assets/Engravers' Roman Regular.otf") format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── Reset & Base ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:  #1a3d2e;
+      --green-mid: #254536;
+      --ivory:  #f5f0e8;
+      --cream:  #ede5d0;
+      --gold:   #b89a56;
+      --gold-light: #d4b87a;
+      --charcoal: #1c1c1c;
+      --text:   #2e2a22;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      background: var(--ivory);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── Typography ─────────────────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+    }
+    .overline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .gold-divider {
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.2rem auto;
+    }
+    .gold-divider.left { margin-left: 0; }
+
+    /* ─── Site Notice ─────────────────────────────────────────────────────────── */
+    .notice-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,20,14,0.75);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .notice-backdrop.open { display: flex; }
+    .notice-modal {
+      background: var(--ivory);
+      max-width: 460px;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      animation: fadeInUp 0.4s ease forwards;
+    }
+    .notice-modal .gold-divider { margin: 1rem auto 1.5rem; }
+    .notice-modal h3 {
+      font-size: 1.7rem;
+      color: var(--green);
+      margin-bottom: 0;
+    }
+    .notice-modal p {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: #4a4235;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .notice-close {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--green);
+      color: var(--ivory);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      cursor: pointer;
+      transition: background 0.25s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .notice-close:hover { background: var(--gold); color: var(--charcoal); }
+
+    /* ─── Navigation ─────────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(20, 30, 24, 0.97);
+      padding: 1rem 3rem;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .nav-logo img {
+      width: 38px;
+      height: auto;
+      object-fit: unset;
+      filter: brightness(0) invert(1);
+    }
+    .nav-wordmark {
+      font-family: 'Engravers Roman', 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: white;
+      font-weight: normal;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-utility {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-instagram {
+      display: inline-flex;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.25s;
+    }
+    .nav-instagram svg { width: 18px; height: 18px; display: block; }
+    .nav-instagram:hover { color: var(--gold-light); }
+    .nav-mobile-instagram {
+      display: inline-flex;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.25s;
+      margin-top: 0.5rem;
+    }
+    .nav-mobile-instagram svg { width: 22px; height: 22px; display: block; }
+    .nav-mobile-instagram:hover { color: var(--gold-light); }
+    .nav-booknow {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      padding: 0.5rem 1.2rem;
+      color: var(--gold) !important;
+      transition: background 0.25s, color 0.25s !important;
+    }
+    .nav-booknow:hover {
+      background: var(--gold) !important;
+      color: var(--charcoal) !important;
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 101;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1px; background: white;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(20, 30, 24, 0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 6rem 2rem 3rem;
+      min-height: 100dvh;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.25s;
+    }
+    .nav-mobile a:hover { color: var(--gold-light); }
+    .nav-mobile .nav-booknow {
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 0.75rem 2rem;
+      margin-top: 1rem;
+    }
+
+    /* ─── Page Hero (shorter than home) ──────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 60vh;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-media { position: absolute; inset: 0; }
+    .hero-media video, .hero-media img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,20,14,0.45) 0%, rgba(10,20,14,0.55) 50%, rgba(10,20,14,0.78) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+      animation: fadeInUp 1.4s ease forwards;
+    }
+    .hero-content .overline { color: var(--gold-light); }
+    .hero-content h1 {
+      margin-top: 1rem;
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      color: white;
+      line-height: 1.1;
+    }
+    .hero-tagline {
+      margin-top: 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.04em;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: white;
+      border: 1px solid rgba(184,154,86,0.7);
+      padding: 0.85rem 2.5rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .hero-cta:hover { background: var(--gold); border-color: var(--gold); }
+
+    /* ─── Section Shared ─────────────────────────────────────────────────────── */
+    section { position: relative; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .section-pad { padding: 7rem 0; }
+    .section-center { text-align: center; max-width: 700px; margin: 0 auto; }
+    .section-center .gold-divider { margin: 1.2rem auto; }
+    .section-center h2 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      color: var(--green);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .section-center p {
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: #4a4235;
+    }
+
+    /* ─── Find Us Grid (map + contact) ───────────────────────────────────────── */
+    .find-us-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+    .map-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border: 1px solid rgba(184,154,86,0.3);
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .address-block { margin-top: 1.5rem; }
+    .address-block p {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: #4a4235;
+      margin-bottom: 1rem;
+    }
+    .contact-card {
+      background: var(--cream);
+      padding: 2.5rem 2.2rem;
+    }
+    .contact-card h4 {
+      font-size: 1.25rem;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    .contact-card p {
+      font-size: 0.83rem;
+      line-height: 1.85;
+      color: #4a4235;
+      margin-bottom: 1.5rem;
+    }
+    .contact-card a.contact-link {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--green);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1.2rem;
+      width: fit-content;
+    }
+    .contact-card .contact-static {
+      display: block;
+      font-size: 0.8rem;
+      color: #8a7f6c;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .contact-card .contact-note {
+      font-size: 0.75rem;
+      color: #6b6050;
+      border-top: 1px solid rgba(184,154,86,0.3);
+      padding-top: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .contact-card .contact-note a { color: var(--green); border-bottom: 1px solid var(--gold); }
+
+    /* ─── By Train ────────────────────────────────────────────────────────────── */
+    .quad-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .train-card {
+      background: var(--ivory);
+      border: 1px solid rgba(184,154,86,0.25);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .train-card .city {
+      font-size: 1.2rem;
+      color: var(--green);
+    }
+    .train-card .time {
+      font-family: 'Engravers Roman', 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      color: var(--green);
+      margin: 0.6rem 0;
+      line-height: 1;
+    }
+    .train-card .note {
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: #6b6050;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────────── */
+    footer { background: var(--charcoal); padding: 5rem 0 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .footer-logo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 3.5rem; }
+    .footer-logo-row img { width: 44px; height: auto; object-fit: unset; filter: brightness(0) invert(1) opacity(0.6); }
+    .footer-logo-row span {
+      font-family: 'Engravers Roman', 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+      font-weight: normal;
+    }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 3rem;
+    }
+    .footer-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul li a { font-size: 0.78rem; color: rgba(255,255,255,0.45); transition: color 0.25s; }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copyright { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+    .footer-social { display: flex; gap: 1.2rem; }
+    .footer-social a {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.25s;
+    }
+    .footer-social a:hover { color: var(--gold); }
+
+    /* ─── Animations ─────────────────────────────────────────────────────────── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .find-us-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .quad-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-cols { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .nav { padding: 1.2rem 1.5rem; }
+      .nav.scrolled { padding: 0.9rem 1.5rem; }
+      .section-inner { padding: 0 2.5rem; }
+      .section-pad { padding-top: 4rem; padding-bottom: 4rem; }
+      .find-us-grid { margin-top: 2rem; }
+      .quad-grid { grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+      .footer-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Site Notice ────────────────────────────────────────────────────── -->
+  <div class="notice-backdrop" id="siteNotice">
+    <div class="notice-modal">
+      <span class="overline">A Note From Marle Hall</span>
+      <span class="gold-divider"></span>
+      <h3>Currently Under Renovation</h3>
+      <p>We're putting the finishing touches on Marle Hall and look forward to welcoming you for viewings from September 2026. In the meantime, feel free to explore our weddings and events, or get in touch with any questions.</p>
+      <button class="notice-close" id="noticeClose">Continue to Site</button>
+    </div>
+  </div>
+
+  <!-- ─── Navigation ─────────────────────────────────────────────────────── -->
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/MH.svg" alt="Marle Hall monogram" />
+      <span class="nav-wordmark">MARLE HALL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="index.html#introduction">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-utility">
+      <a href="https://www.instagram.com/marlehallestate" class="nav-instagram" target="_blank" rel="noopener" aria-label="Marle Hall on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="enquire.html" class="nav-booknow">Enquire Now</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="weddings.html">Weddings</a>
+    <a href="events.html">Events</a>
+    <a href="index.html#introduction">Our Story</a>
+    <a href="contact.html">Contact</a>
+    <a href="enquire.html" class="nav-booknow" id="mobileBookNow">Enquire Now</a>
+    <a href="https://www.instagram.com/marlehallestate" class="nav-mobile-instagram" target="_blank" rel="noopener" aria-label="Marle Hall on Instagram">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ─── Hero ───────────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-media">
+      <video autoplay muted loop playsinline poster="assets/MHwhite.png">
+        <source src="assets/marle.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="overline">Find Us</span>
+      <h1>Contact &amp; Getting Here</h1>
+      <p class="hero-tagline">Set on a hillside above Llandudno Junction, on the North Wales coast.</p>
+      <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Marle+Hall,+Marl+Ln,+Llandudno+Junction+LL31+9JA" class="hero-cta" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+  </section>
+
+  <!-- ─── Find Us & Get In Touch ─────────────────────────────────────────── -->
+  <section style="background: var(--ivory);">
+    <div class="section-inner section-pad">
+      <div class="section-center reveal">
+        <h2>Find Us &amp; Get In Touch</h2>
+        <p>Marl Lane, Llandudno Junction, LL31 9JA — easily reached by road, and just a short walk from the train station.</p>
+      </div>
+      <div class="find-us-grid">
+        <div class="reveal">
+          <div class="map-wrap">
+            <iframe
+              src="https://www.google.com/maps?q=Marle+Hall,+Marl+Ln,+Llandudno+Junction+LL31+9JA&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+              title="Map showing the location of Marle Hall"></iframe>
+          </div>
+          <div class="address-block">
+            <p>Marle Hall<br />Marl Lane, Llandudno Junction<br />LL31 9JA</p>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Marle+Hall,+Marl+Ln,+Llandudno+Junction+LL31+9JA" class="contact-link" target="_blank" rel="noopener">Get Directions →</a>
+          </div>
+        </div>
+
+        <div class="contact-card reveal reveal-delay-1">
+          <h4>Get In Touch</h4>
+          <p>Our team is happy to help with any questions about weddings, events, or the hall itself.</p>
+          <a href="mailto:bookings@marlehall.org.uk" class="contact-link">bookings@marlehall.org.uk</a>
+          <a href="https://www.instagram.com/marlehallestate" class="contact-link">@marlehallestate</a>
+          <span class="contact-static">Telephone — Coming Soon</span>
+          <p class="contact-note">Have a wedding or event in mind? Visit our <a href="enquire.html">enquiry page</a> to tell us more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── By Train ───────────────────────────────────────────────────────── -->
+  <section style="background: var(--cream);">
+    <div class="section-inner section-pad">
+      <div class="section-center reveal">
+        <span class="overline">By Train</span>
+        <span class="gold-divider"></span>
+        <h2>Getting Here by Rail</h2>
+        <p>Llandudno Junction station is just a 15 minute walk from Marle Hall, with direct services from across the country.</p>
+      </div>
+      <div class="quad-grid">
+        <div class="train-card reveal">
+          <span class="city">Chester</span>
+          <div class="time">48 min</div>
+          <span class="note">Fastest direct service</span>
+        </div>
+        <div class="train-card reveal reveal-delay-1">
+          <span class="city">Manchester</span>
+          <div class="time">1 hr 53 min</div>
+          <span class="note">Fastest direct service</span>
+        </div>
+        <div class="train-card reveal">
+          <span class="city">Birmingham</span>
+          <div class="time">2 hr 15 min</div>
+          <span class="note">Fastest direct service</span>
+        </div>
+        <div class="train-card reveal reveal-delay-1">
+          <span class="city">London</span>
+          <div class="time">2 hr 58 min</div>
+          <span class="note">Fastest direct service</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo-row">
+        <img src="assets/MH.svg" alt="Marle Hall" />
+        <span>MARLE HALL</span>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Marle Hall</h4>
+          <ul>
+            <li><a href="index.html#introduction">Our Story</a></li>
+            <li><a href="tbc.html">Careers</a></li>
+            <li><a href="tbc.html">Hotel Rooms — Opening Soon</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Weddings &amp; Events</h4>
+          <ul>
+            <li><a href="weddings.html">Weddings</a></li>
+            <li><a href="events.html">Corporate Events</a></li>
+            <li><a href="events.html">Private Parties</a></li>
+            <li><a href="events.html">Exclusive Hire</a></li>
+            <li><a href="events.html">Seasonal Celebrations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Information</h4>
+          <ul>
+            <li><a href="enquire.html">Enquire Now</a></li>
+            <li><a href="contact.html">Getting Here</a></li>
+            <li><a href="tbc.html">Gift Vouchers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 Marle Hall.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/marlehallestate">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Site notice ─────────────────────────────────────────────────────────
+    const siteNotice = document.getElementById('siteNotice');
+    const noticeClose = document.getElementById('noticeClose');
+    function closeNotice() {
+      siteNotice.classList.remove('open');
+      sessionStorage.setItem('mh-notice-seen', '1');
+    }
+    if (!sessionStorage.getItem('mh-notice-seen')) {
+      window.addEventListener('load', () => siteNotice.classList.add('open'));
+    }
+    noticeClose.addEventListener('click', closeNotice);
+    siteNotice.addEventListener('click', (e) => { if (e.target === siteNotice) closeNotice(); });
+
+    // ─── Hamburger menu ──────────────────────────────────────────────────────
+    const hamburger  = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ─── Nav scroll state ────────────────────────────────────────────────────
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ─── Scroll reveal ───────────────────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -3,15 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marle Hall - Hotel & Venue</title>
+  <title>Marle Hall - Weddings & Events Venue</title>
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script type="importmap">
-    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
-                   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/" } }
-  </script>
   <style>
     @font-face {
       font-family: 'Engravers Roman';
@@ -67,6 +63,54 @@
     }
     .gold-divider.left { margin-left: 0; }
 
+    /* ─── Site Notice ─────────────────────────────────────────────────────────── */
+    .notice-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,20,14,0.75);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .notice-backdrop.open { display: flex; }
+    .notice-modal {
+      background: var(--ivory);
+      max-width: 460px;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      animation: fadeInUp 0.4s ease forwards;
+    }
+    .notice-modal .gold-divider { margin: 1rem auto 1.5rem; }
+    .notice-modal h3 {
+      font-size: 1.7rem;
+      color: var(--green);
+      margin-bottom: 0;
+    }
+    .notice-modal p {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: #4a4235;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .notice-close {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--green);
+      color: var(--ivory);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      cursor: pointer;
+      transition: background 0.25s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .notice-close:hover { background: var(--gold); color: var(--charcoal); }
+
     /* ─── Navigation ─────────────────────────────────────────────────────────── */
     .nav {
       position: fixed;
@@ -118,6 +162,21 @@
       gap: 1.5rem;
       align-items: center;
     }
+    .nav-instagram {
+      display: inline-flex;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.25s;
+    }
+    .nav-instagram svg { width: 18px; height: 18px; display: block; }
+    .nav-instagram:hover { color: var(--gold-light); }
+    .nav-mobile-instagram {
+      display: inline-flex;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.25s;
+      margin-top: 0.5rem;
+    }
+    .nav-mobile-instagram svg { width: 22px; height: 22px; display: block; }
+    .nav-mobile-instagram:hover { color: var(--gold-light); }
     .nav-utility a {
       font-size: 0.65rem;
       letter-spacing: 0.18em;
@@ -127,6 +186,9 @@
     }
     .nav-utility a:hover { color: var(--gold-light); }
     .nav-booknow {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
       border: 1px solid var(--gold);
       padding: 0.5rem 1.2rem;
       color: var(--gold) !important;
@@ -218,7 +280,7 @@
       animation: fadeInUp 1.4s ease forwards;
     }
     .hero-logo {
-      width: clamp(220px, 28vw, 360px);
+      width: clamp(360px, min(76vw, 70vh), 950px);
       height: auto;
       object-fit: unset;
       margin: 0 auto 2rem;
@@ -248,62 +310,6 @@
       border-color: var(--gold);
     }
 
-    /* ─── Booking Bar ────────────────────────────────────────────────────────── */
-    .booking-bar {
-      position: relative;
-      z-index: 10;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
-    }
-    .booking-bar label {
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-    .booking-field {
-      flex: 1;
-      min-width: 160px;
-      padding: 1rem 1.5rem;
-      border-right: 1px solid rgba(255,255,255,0.08);
-    }
-    .booking-field input,
-    .booking-field select {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: white;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      width: 100%;
-      cursor: pointer;
-    }
-    .booking-field input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1) opacity(0.4);
-      cursor: pointer;
-    }
-    .booking-field select option { background: var(--green); }
-    .booking-submit {
-      background: var(--gold);
-      border: none;
-      color: var(--charcoal);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      padding: 1.5rem 2.5rem;
-      cursor: pointer;
-      transition: background 0.25s;
-      flex-shrink: 0;
-    }
-    .booking-submit:hover { background: var(--gold-light); }
-
     /* ─── Section Shared ─────────────────────────────────────────────────────── */
     section { position: relative; }
     .section-inner {
@@ -317,26 +323,34 @@
     #introduction {
       background: var(--ivory);
     }
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
+    .section-center {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
     }
-    .intro-left h2 {
+    .section-center .gold-divider { margin: 1.2rem auto; }
+    .section-center h2 {
       font-size: clamp(2.2rem, 4vw, 3.2rem);
       line-height: 1.15;
       color: var(--green);
       margin-bottom: 1.5rem;
     }
-    .intro-left p {
+    .section-center p {
       font-size: 0.88rem;
       line-height: 1.9;
       color: #4a4235;
-      margin-bottom: 1rem;
     }
-    .intro-right {
-      padding-top: 1rem;
+    .section-center p + p { margin-top: 1rem; }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .photo-item {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--cream);
     }
     .key-facts {
       border-top: 1px solid var(--cream);
@@ -360,6 +374,44 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #6b6050;
+    }
+
+    /* ─── Weddings & Events Teaser ───────────────────────────────────────────── */
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .offering-card {
+      display: block;
+      background: var(--ivory);
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(184,154,86,0.25);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .offering-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .offering-card h3 {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    .offering-card p {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: #4a4235;
+      margin-bottom: 1.5rem;
+    }
+    .offering-link {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    @media (max-width: 1024px) {
+      .offerings-grid { grid-template-columns: 1fr; gap: 2rem; }
     }
 
     /* ─── Footer ─────────────────────────────────────────────────────────────── */
@@ -457,20 +509,6 @@
       padding: 0.4rem 0.8rem;
     }
 
-    /* ─── Intro 3D Model ─────────────────────────────────────────────────────── */
-    .intro-model-wrap {
-      width: 100%;
-      height: 420px;
-      position: relative;
-    }
-    #intro-3d-canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      cursor: grab;
-    }
-    #intro-3d-canvas:active { cursor: grabbing; }
-
     /* ─── Animations ─────────────────────────────────────────────────────────── */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -494,74 +532,33 @@
       .nav-links { display: none; }
       .nav-utility a:not(.nav-booknow) { display: none; }
       .nav-hamburger { display: flex; }
-      .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-cols { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 640px) {
       .nav { padding: 1.2rem 1.5rem; }
       .nav.scrolled { padding: 0.9rem 1.5rem; }
-      .booking-bar { flex-direction: column; }
-      .booking-field { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-      .booking-submit { width: 100%; padding: 1.2rem; }
+      .section-inner { padding: 0 2.5rem; }
+      .section-pad { padding-top: 4rem; padding-bottom: 4rem; }
+      .photo-grid { grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
       .footer-cols { grid-template-columns: 1fr; }
       .footer-awards { display: none; }
     }
 
-    /* ─── Booking Modal ──────────────────────────────────────────────────────── */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10,20,14,0.72);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal {
-      background: var(--ivory);
-      max-width: 480px;
-      width: 100%;
-      padding: 3rem 2.5rem;
-      text-align: center;
-      animation: fadeInUp 0.35s ease forwards;
-    }
-    .modal .gold-divider { margin: 1rem auto 1.5rem; }
-    .modal h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      color: var(--green);
-      margin-bottom: 0;
-    }
-    .modal p {
-      font-size: 0.83rem;
-      line-height: 1.8;
-      color: #4a4235;
-      margin-bottom: 2rem;
-    }
-    .modal p a {
-      color: var(--green);
-      border-bottom: 1px solid var(--gold);
-    }
-    .modal-close {
-      display: inline-block;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      background: var(--green);
-      color: var(--ivory);
-      border: none;
-      padding: 0.8rem 2rem;
-      cursor: pointer;
-      transition: background 0.25s;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .modal-close:hover { background: var(--gold); color: var(--charcoal); }
-
   </style>
 </head>
 <body>
+
+  <!-- ─── Site Notice ────────────────────────────────────────────────────── -->
+  <div class="notice-backdrop" id="siteNotice">
+    <div class="notice-modal">
+      <span class="overline">A Note From Marle Hall</span>
+      <span class="gold-divider"></span>
+      <h3>Currently Under Renovation</h3>
+      <p>We're putting the finishing touches on Marle Hall and look forward to welcoming you for viewings from September 2026. In the meantime, feel free to explore our weddings and events, or get in touch with any questions.</p>
+      <button class="notice-close" id="noticeClose">Continue to Site</button>
+    </div>
+  </div>
 
   <!-- ─── Navigation ─────────────────────────────────────────────────────── -->
   <nav class="nav" id="mainNav">
@@ -570,12 +567,20 @@
       <span class="nav-wordmark">MARLE HALL</span>
     </a>
     <ul class="nav-links">
-      <li><a href="tbc.html">Rooms &amp; Suites</a></li>
-      <li><a href="tbc.html">Things To Do</a></li>
-      <li><a href="tbc.html">Weddings</a></li>
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="#introduction">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-utility">
-      <a href="#booking" class="nav-booknow">Book Now</a>
+      <a href="https://www.instagram.com/marlehallestate" class="nav-instagram" target="_blank" rel="noopener" aria-label="Marle Hall on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="enquire.html" class="nav-booknow">Enquire Now</a>
     </div>
     <div class="nav-hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -583,74 +588,71 @@
   </nav>
 
   <div class="nav-mobile" id="mobileMenu">
-    <a href="tbc.html">Rooms &amp; Suites</a>
-    <a href="tbc.html">Things To Do</a>
-    <a href="tbc.html">Weddings</a>
-    <a href="#booking" class="nav-booknow" id="mobileBookNow">Book Now</a>
+    <a href="weddings.html">Weddings</a>
+    <a href="events.html">Events</a>
+    <a href="#introduction">Our Story</a>
+    <a href="contact.html">Contact</a>
+    <a href="enquire.html" class="nav-booknow" id="mobileBookNow">Enquire Now</a>
+    <a href="https://www.instagram.com/marlehallestate" class="nav-mobile-instagram" target="_blank" rel="noopener" aria-label="Marle Hall on Instagram">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+      </svg>
+    </a>
   </div>
 
   <!-- ─── Hero ───────────────────────────────────────────────────────────── -->
   <section id="hero">
     <div class="hero-media">
       <video autoplay muted loop playsinline poster="assets/MHwhite.png">
-        <source src="assets/ai-drone-1.mp4" type="video/mp4" />
-        <img src="https://picsum.photos/seed/marlehall/1920/1080" alt="Marle Hall grounds" />
+        <source src="assets/marle.mp4" type="video/mp4" />
       </video>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <img src="assets/MHHero.svg" alt="Marle Hall" class="hero-logo" />
-      <a href="#booking" class="hero-cta">Book Your Stay</a>
+      <a href="enquire.html" class="hero-cta">Enquire Now</a>
     </div>
   </section>
-
-  <!-- ─── Booking Bar ────────────────────────────────────────────────────── -->
-  <div class="booking-bar" id="booking">
-    <div class="booking-field">
-      <label for="arrival">Arrival</label>
-      <input type="date" id="arrival" />
-    </div>
-    <div class="booking-field">
-      <label for="departure">Departure</label>
-      <input type="date" id="departure" />
-    </div>
-    <div class="booking-field">
-      <label for="rooms-count">Rooms</label>
-      <select id="rooms-count">
-        <option>1 Room</option>
-        <option>2 Rooms</option>
-        <option>3 Rooms</option>
-        <option>4+ Rooms</option>
-      </select>
-    </div>
-    <div class="booking-field">
-      <label for="guests">Guests</label>
-      <select id="guests">
-        <option>1 Guest</option>
-        <option>2 Guests</option>
-        <option>3 Guests</option>
-        <option>4 Guests</option>
-        <option>5+ Guests</option>
-      </select>
-    </div>
-    <button class="booking-submit">Check Availability</button>
-  </div>
 
   <!-- ─── Introduction ──────────────────────────────────────────────────── -->
   <section id="introduction">
     <div class="section-inner section-pad">
-      <div class="intro-grid">
-        <div class="intro-left reveal">
-          <span class="overline">Welcome</span>
+      <div class="section-center reveal">
+        <span class="overline">Welcome</span>
+        <span class="gold-divider"></span>
+        <h2>A House Steeped<br />in Living History</h2>
+        <p>A gorgeous Grade-II listed country house built in 1661, nestled on a hill within 30 acres of woodland. Set between the panoramic backdrop of the Snowdonia national park and the coastal sights of the West Shore, Marle Hall offers a truly unique setting for weddings and events.</p>
+        <p>From intimate ceremonies to grand celebrations, our historic hall and grounds provide a setting unlike anywhere else in North Wales.</p>
+      </div>
+      <div class="photo-grid reveal reveal-delay-2">
+        <div class="photo-item"><img src="assets/photos/entrance chadelier.jpg" alt="Entrance chandelier at Marle Hall" /></div>
+        <div class="photo-item"><img src="assets/photos/entrancehallwindow and chairs.jpg" alt="Entrance hall window and chairs at Marle Hall" /></div>
+        <div class="photo-item"><img src="assets/photos/green room couch.jpg" alt="Green room at Marle Hall" /></div>
+        <div class="photo-item"><img src="assets/photos/mezz fireplace.jpg" alt="Mezzanine fireplace at Marle Hall" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Weddings & Events Teaser ───────────────────────────────────────── -->
+  <section id="offerings" style="background: var(--cream);">
+    <div class="section-inner section-pad">
+      <div class="offerings-grid">
+        <a href="weddings.html" class="offering-card reveal">
+          <span class="overline">Celebrate</span>
           <span class="gold-divider left"></span>
-          <h2>A House Steeped<br />in Living History</h2>
-          <p>A gorgeous Grade-II listed country house hotel built in 1661, nestled on a hill within 30 acres of pasture and woodland. Experience the panoramic views of the Snowdonia national park, and the coastal sights of the West Shore.</p>
-        </div>
-        <div class="intro-right reveal reveal-delay-2">
-          <div class="intro-model-wrap">
-            <canvas id="intro-3d-canvas"></canvas>
-          </div>
-        </div>
+          <h3>Weddings</h3>
+          <p>Say your vows beneath a Georgian ceiling and dance the night away in a hall with three centuries of history. Exclusive use, tailored to your day.</p>
+          <span class="offering-link">Discover Weddings →</span>
+        </a>
+        <a href="events.html" class="offering-card reveal reveal-delay-1">
+          <span class="overline">Gather</span>
+          <span class="gold-divider left"></span>
+          <h3>Events</h3>
+          <p>From corporate away-days to private celebrations, Marle Hall's grounds and reception rooms flex to suit gatherings of every size.</p>
+          <span class="offering-link">Discover Events →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -665,34 +667,29 @@
 
       <div class="footer-cols">
         <div class="footer-col">
-          <h4>The Hotel</h4>
+          <h4>Marle Hall</h4>
           <ul>
-            <li><a href="tbc.html">Our Story</a></li>
-            <li><a href="tbc.html">Rooms &amp; Suites</a></li>
-            <li><a href="tbc.html">Things To Do</a></li>
+            <li><a href="index.html#introduction">Our Story</a></li>
             <li><a href="tbc.html">Careers</a></li>
+            <li><a href="tbc.html">Hotel Rooms — Opening Soon</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Events</h4>
+          <h4>Weddings &amp; Events</h4>
           <ul>
-            <li><a href="tbc.html">Weddings</a></li>
-            <li><a href="tbc.html">Corporate Retreats</a></li>
-            <li><a href="tbc.html">Exclusive Use</a></li>
-            <li><a href="tbc.html">Seasonal Celebrations</a></li>
-            <li><a href="tbc.html">Gift Vouchers</a></li>
+            <li><a href="weddings.html">Weddings</a></li>
+            <li><a href="events.html">Corporate Events</a></li>
+            <li><a href="events.html">Private Parties</a></li>
+            <li><a href="events.html">Exclusive Hire</a></li>
+            <li><a href="events.html">Seasonal Celebrations</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Information</h4>
           <ul>
-            <li><a href="tbc.html">Getting Here</a></li>
-<!--             <li><a href="#">Accessibility</a></li>
-            <li><a href="#">Getting Here</a></li>
-            <li><a href="#">Manage My Booking</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Cookie Settings</a></li>
-            <li><a href="#">Terms &amp; Conditions</a></li> -->
+            <li><a href="enquire.html">Enquire Now</a></li>
+            <li><a href="contact.html">Getting Here</a></li>
+            <li><a href="tbc.html">Gift Vouchers</a></li>
           </ul>
         </div>
       </div>
@@ -706,29 +703,19 @@
     </div>
   </footer>
 
-  <!-- ─── Booking Modal ─────────────────────────────────────────────────────── -->
-  <div class="modal-backdrop" id="bookingModal">
-    <div class="modal">
-      <span class="overline">Bookings</span>
-      <span class="gold-divider"></span>
-      <h3>Not Currently Available</h3>
-      <span class="gold-divider"></span>
-      <p>Marle Hall is not currently taking bookings at this time. Please check back later, or for more information contact <a href="mailto:bookings@marlehall.org.uk">bookings@marlehall.org.uk</a></p>
-      <button class="modal-close" id="modalClose">Close</button>
-    </div>
-  </div>
-
   <script>
-    // ─── Booking modal ───────────────────────────────────────────────────────
-    const bookingModal   = document.getElementById('bookingModal');
-    const modalClose     = document.getElementById('modalClose');
-    const bookingSubmit  = document.querySelector('.booking-submit');
-
-    bookingSubmit.addEventListener('click', () => bookingModal.classList.add('open'));
-    modalClose.addEventListener('click',    () => bookingModal.classList.remove('open'));
-    bookingModal.addEventListener('click', (e) => {
-      if (e.target === bookingModal) bookingModal.classList.remove('open');
-    });
+    // ─── Site notice ─────────────────────────────────────────────────────────
+    const siteNotice = document.getElementById('siteNotice');
+    const noticeClose = document.getElementById('noticeClose');
+    function closeNotice() {
+      siteNotice.classList.remove('open');
+      sessionStorage.setItem('mh-notice-seen', '1');
+    }
+    if (!sessionStorage.getItem('mh-notice-seen')) {
+      window.addEventListener('load', () => siteNotice.classList.add('open'));
+    }
+    noticeClose.addEventListener('click', closeNotice);
+    siteNotice.addEventListener('click', (e) => { if (e.target === siteNotice) closeNotice(); });
 
     // ─── Hamburger menu ──────────────────────────────────────────────────────
     const hamburger  = document.getElementById('hamburger');
@@ -774,103 +761,6 @@
       if (heroMedia && y < window.innerHeight) {
         heroMedia.style.transform = `translateY(${y * 0.35}px)`;
       }
-    });
-
-    // ─── Default booking dates ───────────────────────────────────────────────
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const nextDay = new Date(today);
-    nextDay.setDate(today.getDate() + 2);
-
-    const fmt = d => d.toISOString().split('T')[0];
-    const arrivalInput = document.getElementById('arrival');
-    const departureInput = document.getElementById('departure');
-    if (arrivalInput) arrivalInput.value = fmt(tomorrow);
-    if (departureInput) departureInput.value = fmt(nextDay);
-
-    arrivalInput?.addEventListener('change', () => {
-      const a = new Date(arrivalInput.value);
-      const d = new Date(departureInput.value);
-      if (d <= a) {
-        const next = new Date(a);
-        next.setDate(a.getDate() + 1);
-        departureInput.value = fmt(next);
-      }
-      departureInput.min = arrivalInput.value;
-    });
-  </script>
-
-  <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { OBJLoader }     from 'three/addons/loaders/OBJLoader.js';
-
-    window.addEventListener('load', () => {
-      const canvas = document.getElementById('intro-3d-canvas');
-      const wrap   = canvas.parentElement;
-      const H      = 420;
-      const W      = wrap.clientWidth || 600;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(W, H);
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-      const scene  = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 1000);
-      camera.position.set(0, 2, 10);
-
-      scene.add(new THREE.AmbientLight(0xf5f0e8, 0.8));
-      const key = new THREE.DirectionalLight(0xd4b87a, 2.0);
-      key.position.set(3, 6, 4);
-      scene.add(key);
-      const fill = new THREE.DirectionalLight(0xffffff, 0.5);
-      fill.position.set(-4, 2, -3);
-      scene.add(fill);
-
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableDamping   = true;
-      controls.dampingFactor   = 0.06;
-      controls.enableZoom      = false;
-      controls.autoRotate      = true;
-      controls.autoRotateSpeed = 0.7;
-      controls.minPolarAngle   = Math.PI * 0.2;
-      controls.maxPolarAngle   = Math.PI * 0.65;
-
-      const loader = new OBJLoader();
-      loader.load('midres.obj', (obj) => {
-        const box    = new THREE.Box3().setFromObject(obj);
-        const size   = box.getSize(new THREE.Vector3());
-        const centre = box.getCenter(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale  = 3.0 / maxDim;
-        obj.scale.setScalar(scale);
-        obj.position.sub(centre.clone().multiplyScalar(scale));
-        obj.rotation.x = Math.PI;
-        obj.traverse(c => {
-          if (c.isMesh) c.material = new THREE.MeshStandardMaterial({
-            color: 0xffffff, roughness: 0.6, metalness: 0.0,
-          });
-        });
-        scene.add(obj);
-        camera.position.set(0, size.y * scale * 0.3, maxDim * scale * 1.8);
-        controls.target.set(0, 0, 0);
-        controls.update();
-      });
-
-      (function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-      })();
-
-      window.addEventListener('resize', () => {
-        const w = wrap.clientWidth;
-        renderer.setSize(w, H);
-        camera.aspect = w / H;
-        camera.updateProjectionMatrix();
-      });
     });
   </script>
 </body>
