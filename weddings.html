@@ -110,6 +110,20 @@
       font-family: 'Montserrat', sans-serif;
     }
     .notice-close:hover { background: var(--gold); color: var(--charcoal); }
+    .notice-dismiss {
+      display: block;
+      margin: 1.4rem auto 0;
+      background: none;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a7f6c;
+      cursor: pointer;
+      transition: color 0.25s;
+    }
+    .notice-dismiss:hover { color: var(--green); }
 
     /* ─── Navigation ─────────────────────────────────────────────────────────── */
     .nav {
@@ -309,61 +323,179 @@
       margin: 0 auto;
     }
 
-    /* ─── Triple Grid (Day / Event cards) ────────────────────────────────────── */
-    .triple-grid {
+    /* ─── The Hall ───────────────────────────────────────────────────────────── */
+    .hall-copy {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem;
-      margin-top: 3.5rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 960px;
+      margin: 3rem auto 0;
     }
-    .info-card {
-      background: var(--ivory);
-      padding: 2.8rem 2.2rem;
-      border: 1px solid rgba(184,154,86,0.25);
-    }
-    .info-card .overline { display: block; margin-bottom: 0.8rem; }
-    .info-card h3 {
-      font-size: 1.5rem;
-      color: var(--green);
-      margin-bottom: 1rem;
-    }
-    .info-card p {
-      font-size: 0.83rem;
-      line-height: 1.85;
+    .hall-copy p {
+      font-size: 0.88rem;
+      line-height: 1.95;
       color: #4a4235;
     }
-
-    /* ─── Key Facts strip ────────────────────────────────────────────────────── */
-    .key-facts { border-top: 1px solid var(--cream); max-width: 900px; margin: 3.5rem auto 0; }
-    .key-fact {
-      display: flex;
-      align-items: baseline;
+    .hall-copy p + p { margin-top: 1.2rem; }
+    .hall-copy strong { font-weight: 500; color: var(--green); }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--cream);
+      margin-top: 3.5rem;
     }
-    .key-fact-num {
+    .photo-item { aspect-ratio: 3 / 4; overflow: hidden; background: var(--cream); }
+
+    /* ─── At a Glance ────────────────────────────────────────────────────────── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2.5rem;
+      margin-top: 3.5rem;
+    }
+    .stat { border-top: 1px solid rgba(184,154,86,0.5); padding-top: 1.6rem; }
+    .stat-figure { display: flex; align-items: baseline; gap: 0.7rem; }
+    .stat-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      color: var(--gold);
-      min-width: 80px;
+      font-size: 3rem;
       line-height: 1;
+      color: var(--green);
     }
-    .key-fact-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
+    .stat-unit {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #6b6050;
     }
-
-    /* ─── Media Grid ──────────────────────────────────────────────────────────── */
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 3.5rem;
+    .stat h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-top: 1.1rem;
     }
-    .media-grid video { height: 280px; width: 100%; object-fit: cover; }
+    .stat p {
+      font-size: 0.78rem;
+      line-height: 1.75;
+      color: #6b6050;
+      margin-top: 0.4rem;
+    }
+    .stat-note {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a7f6c;
+    }
+
+    /* ─── Hire Rates ─────────────────────────────────────────────────────────── */
+    .rates-intro {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: #4a4235;
+    }
+    .rates-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin: 2.5rem 0 2.5rem;
+    }
+    .rates-tab {
+      min-width: 110px;
+      background: transparent;
+      border: 1px solid rgba(184,154,86,0.45);
+      padding: 0.75rem 1.4rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b6050;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .rates-tab:hover { border-color: var(--gold); }
+    .rates-tab.active { background: var(--green); border-color: var(--green); color: var(--ivory); }
+    .rates-panel { max-width: 860px; margin: 0 auto; }
+    .rates-panel[hidden] { display: none; }
+    .rates-table { width: 100%; border-collapse: collapse; }
+    .rates-table th {
+      font-weight: 400;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b6050;
+      text-align: right;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--cream);
+      border-bottom: 1px solid var(--gold);
+    }
+    .rates-table th:first-child, .rates-table td:first-child { text-align: left; }
+    .rates-table td {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--cream);
+      text-align: right;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      color: var(--text);
+    }
+    .rates-table td:first-child {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .offer-box {
+      margin-top: 3rem;
+      border: 1px solid var(--gold);
+      padding: 2.2rem 2.4rem;
+      background: var(--ivory);
+    }
+    .offer-box p {
+      margin-top: 0.9rem;
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: #4a4235;
+    }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 3rem;
+      margin-top: 1.6rem;
+    }
+    .offer-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.95rem 0;
+      border-top: 1px solid var(--cream);
+      font-size: 0.82rem;
+    }
+    .offer-prices { display: flex; align-items: baseline; gap: 0.8rem; }
+    .offer-was {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: #9a8f7a;
+      text-decoration: line-through;
+    }
+    .offer-now {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--green);
+    }
+    .rates-notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--cream);
+      font-size: 0.75rem;
+      line-height: 1.8;
+      color: #8a7f6c;
+    }
 
     /* ─── CTA Banner ──────────────────────────────────────────────────────────── */
     .cta-banner {
@@ -385,6 +517,18 @@
       max-width: 500px;
       margin: 0 auto 2.2rem;
     }
+    .cta-details {
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem 2.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+    }
+    .cta-details a { color: var(--gold-light); border-bottom: 1px solid rgba(212,184,122,0.4); }
 
     /* ─── Footer ─────────────────────────────────────────────────────────────── */
     footer { background: var(--charcoal); padding: 5rem 0 2rem; }
@@ -451,8 +595,9 @@
     @media (max-width: 1024px) {
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .triple-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .media-grid { grid-template-columns: 1fr; }
+      .hall-copy { grid-template-columns: 1fr; gap: 1.2rem; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-cols { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 640px) {
@@ -461,9 +606,16 @@
       .section-inner { padding: 0 2.5rem; }
       .section-pad { padding-top: 4rem; padding-bottom: 4rem; }
       .section-pad.tight { padding-top: 3rem; padding-bottom: 3rem; }
-      .triple-grid { margin-top: 2rem; }
-      .key-facts { margin-top: 2rem; }
-      .media-grid { margin-top: 2rem; }
+      .photo-grid { gap: 1rem; margin-top: 2rem; }
+      .stat-grid { grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
+      .rates-tabs { gap: 0.4rem; }
+      .rates-tab { min-width: 0; flex: 1; padding: 0.75rem 0.5rem; }
+      .rates-table td { font-size: 1.2rem; }
+      .rates-table td:first-child { font-size: 0.78rem; }
+      .rates-table th { font-size: 0.55rem; letter-spacing: 0.14em; }
+      .offer-box { padding: 1.8rem 1.4rem; }
+      .offer-grid, .rates-notes { grid-template-columns: 1fr; }
+      .offer-grid { gap: 0; }
       .footer-cols { grid-template-columns: 1fr; }
     }
   </style>
@@ -473,11 +625,12 @@
   <!-- ─── Site Notice ────────────────────────────────────────────────────── -->
   <div class="notice-backdrop" id="siteNotice">
     <div class="notice-modal">
-      <span class="overline">A Note From Marle Hall</span>
+      <span class="overline">Marle Hall</span>
       <span class="gold-divider"></span>
-      <h3>Currently Under Renovation</h3>
-      <p>We're putting the finishing touches on Marle Hall and look forward to welcoming you for viewings from September 2026. In the meantime, feel free to explore our weddings and events, or get in touch with any questions.</p>
-      <button class="notice-close" id="noticeClose">Continue to Site</button>
+      <h3>Grand Opening</h3>
+      <p>Now officially open for viewings. Enjoy 25% off our wedding hire rates this Grand Opening, January &ndash; June 2027. Enquire to book your viewing today.</p>
+      <a href="#rates" class="notice-close" id="noticeEnquire">View Pricing</a>
+      <button class="notice-dismiss" id="noticeClose">Continue to Site</button>
     </div>
   </div>
 
@@ -501,7 +654,7 @@
           <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
         </svg>
       </a>
-      <a href="enquire.html?type=Wedding" class="nav-booknow">Enquire Now</a>
+      <a href="javascript:void(0);" class="nav-booknow" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium" data-type="Wedding">Enquire Now</a>
     </div>
     <div class="nav-hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -513,7 +666,7 @@
     <a href="events.html">Events</a>
     <a href="index.html#introduction">Our Story</a>
     <a href="contact.html">Contact</a>
-    <a href="enquire.html?type=Wedding" class="nav-booknow" id="mobileBookNow">Enquire Now</a>
+    <a href="javascript:void(0);" class="nav-booknow" id="mobileBookNow" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium" data-type="Wedding">Enquire Now</a>
     <a href="https://www.instagram.com/marlehallestate" class="nav-mobile-instagram" target="_blank" rel="noopener" aria-label="Marle Hall on Instagram">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
@@ -532,46 +685,149 @@
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <span class="overline">Weddings</span>
+      <span class="overline">Weddings &amp; Celebrations</span>
       <h1>Say &ldquo;I Do&rdquo;<br />in Living History</h1>
-      <p class="hero-tagline">Exclusive use of the Grade-II listed hall and grounds for 150 guests.</p>
-      <a href="enquire.html?type=Wedding" class="hero-cta">Enquire Now</a>
+      <p class="hero-tagline">A Grade-II listed 17th century country house above the Conwy valley, offered on dry hire for the whole of your wedding day.</p>
+      <a href="javascript:void(0);" class="hero-cta" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium" data-type="Wedding">Enquire Now</a>
     </div>
   </section>
 
   <!-- ─── Introduction ──────────────────────────────────────────────────── -->
   <section id="introduction" style="background: var(--ivory);">
-    <div class="section-inner section-pad section-center reveal">
-      <span class="overline">Your Day, Your Way</span>
-      <span class="gold-divider"></span>
-      <h2>A Wedding as Individual<br />as Your Story</h2>
-      <p>Built in 1661 and set on a hill overlooking the pastures of the old Creuddyn Grange, Marle Hall is given over entirely to you and your guests on your wedding day. No shared spaces, no other functions — just three centuries of history as the backdrop to your own.</p>
+    <div class="section-inner section-pad">
+      <div class="section-center reveal">
+        <span class="overline">The Hall</span>
+        <span class="gold-divider"></span>
+        <h2>Exclusive Use of the<br />Hall and Its Grounds</h2>
+      </div>
+      <div class="hall-copy reveal">
+        <div>
+          <p>Marle Hall is let on a <strong>dry hire</strong> basis. The house and grounds are yours from 9 in the morning until 11 at night, and the caterers, drinks, flowers and music are appointed by you. Nothing is bundled and no supplier list is imposed.</p>
+          <p>The venue offers a beamed entrance hall with original Georgian features, a classic gentlemen's lounge and spacious dining room, as well as a dedicated ceremony room and a make-up room for the bridal party. Tables and chairs are provided, and parking is held for 30 cars.</p>
+        </div>
+        <div>
+          <p>Outside, there is a dedicated space for a marquee to take an outdoor ceremony of a hundred and fifty. A three-bedroom cottage and the bridal suite are included with every hire.</p>
+        </div>
+      </div>
+      <div class="photo-grid reveal reveal-delay-2">
+        <div class="photo-item"><img src="assets/photos/entrance chadelier.jpg" alt="Entrance chandelier at Marle Hall" /></div>
+        <div class="photo-item"><img src="assets/photos/entrancehallwindow and chairs.jpg" alt="Entrance hall window and chairs at Marle Hall" /></div>
+        <div class="photo-item"><img src="assets/photos/green room couch.jpg" alt="Green room at Marle Hall" /></div>
+        <div class="photo-item"><img src="assets/photos/mezz fireplace.jpg" alt="Mezzanine fireplace at Marle Hall" /></div>
+      </div>
     </div>
   </section>
 
-  <!-- ─── The Day ────────────────────────────────────────────────────────── -->
+  <!-- ─── At a Glance ────────────────────────────────────────────────────── -->
   <section style="background: var(--cream);">
     <div class="section-inner section-pad">
       <div class="section-center reveal">
-        <span class="overline">The Day</span>
+        <span class="overline">At a Glance</span>
         <span class="gold-divider"></span>
-        <h2>From Vows to Last Dance</h2>
+        <h2>Your Day, Your Way</h2>
       </div>
-      <div class="triple-grid">
-        <div class="info-card reveal">
-          <span class="overline">Ceremony</span>
-          <h3>Say Your Vows</h3>
-          <p>Exchange your vows in the hall's period reception room, or beneath open skies in the grounds — weather permitting, both are yours to choose.</p>
+      <div class="stat-grid">
+        <div class="stat reveal">
+          <div class="stat-figure"><span class="stat-num">150</span><span class="stat-unit">Guests</span></div>
+          <h3>Outdoor ceremony</h3>
+          <p>Outdoor marquee space nestled in the woods beside the hall</p>
         </div>
-        <div class="info-card reveal reveal-delay-1">
-          <span class="overline">Reception</span>
-          <h3>The Wedding Breakfast</h3>
-          <p>Gather your guests in the hall's grand dining space for a wedding breakfast set against Georgian architecture and original period details.</p>
+        <div class="stat reveal reveal-delay-1">
+          <div class="stat-figure"><span class="stat-num">60</span><span class="stat-unit">Guests</span></div>
+          <h3>Indoor ceremony</h3>
+          <p>Dedicated ceremony room with tall windows, chandeliers and original wooden floors</p>
         </div>
-        <div class="info-card reveal reveal-delay-2">
-          <span class="overline">Evening</span>
-          <h3>Dance the Night Away</h3>
-          <p>As evening falls, the hall transforms for dancing and celebration late into the night, with the grounds and gardens yours to enjoy throughout.</p>
+        <div class="stat reveal reveal-delay-2">
+          <div class="stat-figure"><span class="stat-num">9 &ndash; 11</span><span class="stat-unit">AM / PM</span></div>
+          <h3>Exclusive use</h3>
+          <p>Fourteen hours, the whole house and grounds</p>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-figure"><span class="stat-num">30</span><span class="stat-unit">Cars</span></div>
+          <h3>On-site parking</h3>
+          <p>Private, gated approach</p>
+        </div>
+        <div class="stat reveal reveal-delay-1">
+          <div class="stat-figure"><span class="stat-num">3</span><span class="stat-unit">Bedrooms</span></div>
+          <h3>Accommodation</h3>
+          <p>Three-bedroom cottage</p>
+        </div>
+        <div class="stat reveal reveal-delay-2">
+          <div class="stat-figure"><span class="stat-num">2027</span><span class="stat-unit">Expected</span></div>
+          <h3>Ceremony licence</h3>
+          <p>Application in progress</p>
+        </div>
+      </div>
+      <p class="stat-note">All figures are for exclusive hire of the hall, cottage and grounds.</p>
+    </div>
+  </section>
+
+  <!-- ─── Hire Rates ─────────────────────────────────────────────────────── -->
+  <section id="rates" style="background: var(--ivory);">
+    <div class="section-inner section-pad">
+      <div class="section-center reveal">
+        <span class="overline">Hire Rates</span>
+        <span class="gold-divider"></span>
+        <h2>Dry Hire Rates</h2>
+      </div>
+      <p class="rates-intro section-center reveal">Peak season runs May to September; off-peak October to April. Rates are for exclusive use of the hall, cottage and grounds and exclude catering and drinks.</p>
+
+      <div class="rates-tabs" role="group" aria-label="Select year">
+        <button type="button" class="rates-tab active" data-year="2027" aria-pressed="true">2027</button>
+        <button type="button" class="rates-tab" data-year="2028" aria-pressed="false">2028</button>
+        <button type="button" class="rates-tab" data-year="2029" aria-pressed="false">2029</button>
+      </div>
+
+      <div class="rates-panel" data-year="2027">
+        <table class="rates-table">
+          <thead><tr><th scope="col">Day</th><th scope="col">Peak &middot; May&ndash;Sep</th><th scope="col">Off-Peak &middot; Oct&ndash;Apr</th></tr></thead>
+          <tbody>
+            <tr><td>Monday &ndash; Wednesday</td><td>&pound;3,850</td><td>&pound;3,000</td></tr>
+            <tr><td>Sunday &amp; Thursday</td><td>&pound;4,350</td><td>&pound;3,500</td></tr>
+            <tr><td>Friday</td><td>&pound;5,500</td><td>&pound;4,500</td></tr>
+            <tr><td>Saturday</td><td>&pound;6,495</td><td>&pound;5,200</td></tr>
+          </tbody>
+        </table>
+        <div class="offer-box">
+          <span class="overline">Grand Opening &middot; 25% Off</span>
+          <p>The same exclusive use offer at a markdown for our Grand Opening as a wedding venue. From January &ndash; June 2027.</p>
+          <div class="offer-grid">
+            <div class="offer-line"><span>Peak Saturday</span><span class="offer-prices"><span class="offer-was">&pound;6,495</span><span class="offer-now">&pound;4,871</span></span></div>
+            <div class="offer-line"><span>Off-Peak Saturday</span><span class="offer-prices"><span class="offer-was">&pound;5,200</span><span class="offer-now">&pound;3,900</span></span></div>
+            <div class="offer-line"><span>Peak Mon&ndash;Weds</span><span class="offer-prices"><span class="offer-was">&pound;3,850</span><span class="offer-now">&pound;2,888</span></span></div>
+            <div class="offer-line"><span>Off-Peak Mon&ndash;Weds</span><span class="offer-prices"><span class="offer-was">&pound;3,000</span><span class="offer-now">&pound;2,250</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rates-panel" data-year="2028" hidden>
+        <table class="rates-table">
+          <thead><tr><th scope="col">Day</th><th scope="col">Peak &middot; May&ndash;Sep</th><th scope="col">Off-Peak &middot; Oct&ndash;Apr</th></tr></thead>
+          <tbody>
+            <tr><td>Monday &ndash; Wednesday</td><td>&pound;4,050</td><td>&pound;3,150</td></tr>
+            <tr><td>Sunday &amp; Thursday</td><td>&pound;4,550</td><td>&pound;3,700</td></tr>
+            <tr><td>Friday</td><td>&pound;5,800</td><td>&pound;4,750</td></tr>
+            <tr><td>Saturday</td><td>&pound;6,845</td><td>&pound;5,450</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rates-panel" data-year="2029" hidden>
+        <table class="rates-table">
+          <thead><tr><th scope="col">Day</th><th scope="col">Peak &middot; May&ndash;Sep</th><th scope="col">Off-Peak &middot; Oct&ndash;Apr</th></tr></thead>
+          <tbody>
+            <tr><td>Monday &ndash; Wednesday</td><td>&pound;4,250</td><td>&pound;3,300</td></tr>
+            <tr><td>Sunday &amp; Thursday</td><td>&pound;4,800</td><td>&pound;3,900</td></tr>
+            <tr><td>Friday</td><td>&pound;6,100</td><td>&pound;5,000</td></tr>
+            <tr><td>Saturday</td><td>&pound;7,195</td><td>&pound;5,700</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rates-panel">
+        <div class="rates-notes">
+          <p>A deposit of 25% of the full price secures the date; the balance falls due eight weeks before the wedding.</p>
+          <p>Rates apply to weddings held in the selected calendar year. Bank holiday weekends are priced as Saturdays.</p>
         </div>
       </div>
     </div>
@@ -579,10 +835,14 @@
 
   <!-- ─── CTA Banner ─────────────────────────────────────────────────────── -->
   <section class="cta-banner">
-    <span class="overline">Start Planning</span>
-    <h2>Ready to Begin Your<br />Marle Hall Story?</h2>
-    <p>Tell us about your day and our team will be in touch to arrange a viewing and talk through availability.</p>
-    <a href="enquire.html?type=Wedding" class="hero-cta">Enquire Now</a>
+    <span class="overline">Enquiries</span>
+    <h2>Come and See.</h2>
+    <p>Viewings are by appointment. Tell us the date you have in mind and we will confirm its availability before you visit.</p>
+    <a href="javascript:void(0);" class="hero-cta" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium" data-type="Wedding">Enquire Now</a>
+    <div class="cta-details">
+      <a href="mailto:bookings@marlehall.org.uk">bookings@marlehall.org.uk</a>
+      <span>Marle Hall, Marl Lane, Llandudno Junction LL31 9JA</span>
+    </div>
   </section>
 
   <!-- ─── Footer ──────────────────────────────────────────────────────────── -->
@@ -615,7 +875,7 @@
         <div class="footer-col">
           <h4>Information</h4>
           <ul>
-            <li><a href="enquire.html">Enquire Now</a></li>
+            <li><a href="javascript:void(0);" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium" data-type="Wedding">Enquire Now</a></li>
             <li><a href="contact.html">Getting Here</a></li>
             <li><a href="tbc.html">Gift Vouchers</a></li>
           </ul>
@@ -637,12 +897,13 @@
     const noticeClose = document.getElementById('noticeClose');
     function closeNotice() {
       siteNotice.classList.remove('open');
-      sessionStorage.setItem('mh-notice-seen', '1');
+      sessionStorage.setItem('mh-opening-seen', '1');
     }
-    if (!sessionStorage.getItem('mh-notice-seen')) {
+    if (!sessionStorage.getItem('mh-opening-seen')) {
       window.addEventListener('load', () => siteNotice.classList.add('open'));
     }
     noticeClose.addEventListener('click', closeNotice);
+    document.getElementById('noticeEnquire').addEventListener('click', closeNotice);
     siteNotice.addEventListener('click', (e) => { if (e.target === siteNotice) closeNotice(); });
 
     // ─── Hamburger menu ──────────────────────────────────────────────────────
@@ -680,6 +941,20 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     revealEls.forEach(el => observer.observe(el));
+
+    // ─── Rates year tabs ─────────────────────────────────────────────────────
+    const rateTabs   = document.querySelectorAll('.rates-tab');
+    const ratePanels = document.querySelectorAll('.rates-panel[data-year]');
+    rateTabs.forEach(tab => tab.addEventListener('click', () => {
+      rateTabs.forEach(t => {
+        const on = t === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-pressed', on);
+      });
+      ratePanels.forEach(p => { p.hidden = p.dataset.year !== tab.dataset.year; });
+    }));
   </script>
+
+  <script src="https://server.fillout.com/embed/v1/"></script>
 </body>
 </html>

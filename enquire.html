@@ -115,6 +115,20 @@
       font-family: 'Montserrat', sans-serif;
     }
     .notice-close:hover { background: var(--gold); color: var(--charcoal); }
+    .notice-dismiss {
+      display: block;
+      margin: 1.4rem auto 0;
+      background: none;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a7f6c;
+      cursor: pointer;
+      transition: color 0.25s;
+    }
+    .notice-dismiss:hover { color: var(--green); }
 
     /* ─── Navigation ─────────────────────────────────────────────────────────── */
     .nav {
@@ -491,11 +505,12 @@
   <!-- ─── Site Notice ────────────────────────────────────────────────────── -->
   <div class="notice-backdrop" id="siteNotice">
     <div class="notice-modal">
-      <span class="overline">A Note From Marle Hall</span>
+      <span class="overline">Marle Hall</span>
       <span class="gold-divider"></span>
-      <h3>Currently Under Renovation</h3>
-      <p>We're putting the finishing touches on Marle Hall and look forward to welcoming you for viewings from September 2026. In the meantime, feel free to explore our weddings and events, or get in touch with any questions.</p>
-      <button class="notice-close" id="noticeClose">Continue to Site</button>
+      <h3>Grand Opening</h3>
+      <p>Now officially open for viewings. Enjoy 25% off our wedding hire rates this Grand Opening, January &ndash; June 2027. Enquire to book your viewing today.</p>
+      <a href="weddings.html#rates" class="notice-close" id="noticeEnquire">View Pricing</a>
+      <button class="notice-dismiss" id="noticeClose">Continue to Site</button>
     </div>
   </div>
 
@@ -519,7 +534,7 @@
           <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
         </svg>
       </a>
-      <a href="enquire.html" class="nav-booknow">Enquire Now</a>
+      <a href="javascript:void(0);" class="nav-booknow" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Enquire Now</a>
     </div>
     <div class="nav-hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -531,7 +546,7 @@
     <a href="events.html">Events</a>
     <a href="index.html#introduction">Our Story</a>
     <a href="contact.html">Contact</a>
-    <a href="enquire.html" class="nav-booknow" id="mobileBookNow">Enquire Now</a>
+    <a href="javascript:void(0);" class="nav-booknow" id="mobileBookNow" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Enquire Now</a>
     <a href="https://www.instagram.com/marlehallestate" class="nav-mobile-instagram" target="_blank" rel="noopener" aria-label="Marle Hall on Instagram">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
@@ -658,7 +673,7 @@
         <div class="footer-col">
           <h4>Information</h4>
           <ul>
-            <li><a href="enquire.html">Enquire Now</a></li>
+            <li><a href="javascript:void(0);" role="button" data-fillout-id="vai6E1UmX2us" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Enquire Now</a></li>
             <li><a href="contact.html">Getting Here</a></li>
             <li><a href="tbc.html">Gift Vouchers</a></li>
           </ul>
@@ -781,12 +796,13 @@
     const noticeClose = document.getElementById('noticeClose');
     function closeNotice() {
       siteNotice.classList.remove('open');
-      sessionStorage.setItem('mh-notice-seen', '1');
+      sessionStorage.setItem('mh-opening-seen', '1');
     }
-    if (!sessionStorage.getItem('mh-notice-seen')) {
+    if (!sessionStorage.getItem('mh-opening-seen')) {
       window.addEventListener('load', () => siteNotice.classList.add('open'));
     }
     noticeClose.addEventListener('click', closeNotice);
+    document.getElementById('noticeEnquire').addEventListener('click', closeNotice);
     siteNotice.addEventListener('click', (e) => { if (e.target === siteNotice) closeNotice(); });
 
     // ─── Hamburger menu ──────────────────────────────────────────────────────
@@ -813,5 +829,7 @@
       nav.classList.toggle('scrolled', window.scrollY > 60);
     });
   </script>
+
+  <script src="https://server.fillout.com/embed/v1/"></script>
 </body>
 </html>
