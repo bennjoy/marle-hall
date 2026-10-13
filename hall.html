@@ -324,20 +324,18 @@
     }
 
     /* ─── Rooms ──────────────────────────────────────────────────────────────── */
-    .rooms-intro {
-      max-width: 620px;
-      margin: 0 auto;
-      font-size: 0.9rem;
-      line-height: 1.9;
-      color: #4a4235;
-    }
+    .hero-tagline { max-width: 620px; margin-left: auto; margin-right: auto; }
     .room {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
-      gap: 5rem;
+      gap: 3.5rem;
       align-items: center;
+      border: 1px solid var(--gold);
+      padding: 2rem;
     }
-    .room + .room { margin-top: 6.5rem; }
+    .room-text { padding-right: 1.5rem; }
+    .room.flip .room-text { padding-right: 0; padding-left: 1.5rem; }
+    .room + .room { margin-top: 4rem; }
     .room.flip .room-media { order: 2; }
     .room-media {
       aspect-ratio: 4 / 5;
@@ -532,7 +530,8 @@
       .room { grid-template-columns: 1fr; gap: 2rem; }
       .room.flip .room-media { order: 0; }
       .room-media { aspect-ratio: 4 / 3; }
-      .room + .room { margin-top: 4.5rem; }
+      .room-text, .room.flip .room-text { padding: 0 0.5rem 0.5rem; }
+      .room + .room { margin-top: 3rem; }
       .footer-cols { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 640px) {
@@ -540,7 +539,8 @@
       .nav.scrolled { padding: 0.9rem 1.5rem; }
       .section-inner { padding: 0 2.5rem; }
       .section-pad { padding-top: 4rem; padding-bottom: 4rem; }
-      .room + .room { margin-top: 3.5rem; }
+      .room { padding: 1rem; }
+      .room + .room { margin-top: 2.5rem; }
       .footer-cols { grid-template-columns: 1fr; }
     }
   </style>
@@ -610,23 +610,16 @@
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <span class="overline">The Hall</span>
-      <h1>Room by Room</h1>
-      <p class="hero-tagline">Step inside a Grade-II listed country house, yours exclusively on the day.</p>
+      <span class="overline">Take a Look Around</span>
+      <h1>The Rooms of Marle Hall</h1>
+      <p class="hero-tagline">A Grade-II listed 17th century house above the Conwy valley, with original Georgian features throughout. These are the principal rooms available to you and your guests.</p>
     </div>
   </section>
 
   <!-- ─── Rooms ──────────────────────────────────────────────────────────── -->
   <section style="background: var(--ivory);">
     <div class="section-inner section-pad">
-      <div class="section-center reveal">
-        <span class="overline">Take a Look Around</span>
-        <span class="gold-divider"></span>
-        <h2>The Rooms of Marle Hall</h2>
-      </div>
-      <p class="rooms-intro section-center reveal">A Grade-II listed 17th century house above the Conwy valley, with original Georgian features throughout. These are the principal rooms available to you and your guests.</p>
-
-      <div style="margin-top: 5rem;">
+      <div>
         <article class="room reveal" id="entrance-hall">
           <div class="room-media carousel" data-carousel role="group" aria-roledescription="carousel" aria-label="Entrance Hall photos">
             <div class="carousel-track">
